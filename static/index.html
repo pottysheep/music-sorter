@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Library Migrator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>🎵 Music Library Migrator</h1>
+            <div class="stats-bar">
+                <span id="total-files">Files: 0</span>
+                <span id="total-size">Size: 0 GB</span>
+                <span id="duplicates-found">Duplicates: 0</span>
+                <span id="migrated-count">Migrated: 0</span>
+            </div>
+        </header>
+        
+        <main>
+            <!-- Step 1: Source Selection -->
+            <section id="source-section" class="step-section active">
+                <h2>Step 1: Select Source Directory</h2>
+                <div class="input-group">
+                    <input type="text" id="source-path" placeholder="e.g., D:\ or D:\Music" value="D:\">
+                    <button onclick="openDirectoryPicker('source')" class="browse-btn">Browse</button>
+                    <button onclick="startScan()" id="scan-btn">Scan Directory</button>
+                    <button onclick="stopScan()" id="stop-scan-btn" style="display: none;">Stop Scan</button>
+                </div>
+                <div class="progress-container" id="scan-progress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="scan-progress-fill"></div>
+                    </div>
+                    <p class="progress-text" id="scan-progress-text"></p>
+                </div>
+                <div id="scan-results" class="results-box" style="display: none;">
+                    <h3>Scan Results</h3>
+                    <p>Files indexed: <span id="scan-files-count">0</span></p>
+                    <p>Time taken: <span id="scan-time">0</span> seconds</p>
+                    <p>Files per second: <span id="scan-speed">0</span></p>
+                </div>
+            </section>
+
+            <!-- Step 2: Analysis Results -->
+            <section id="analysis-section" class="step-section">
+                <h2>Step 2: Analysis Results</h2>
+                <button onclick="startAnalysis()" id="analyze-btn">Analyze Files</button>
+                
+                <div class="progress-container" id="analysis-progress" style="display: none;">
+                    <h4>Metadata Extraction</h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="metadata-progress-fill"></div>
+                    </div>
+                    <p class="progress-text" id="metadata-progress-text"></p>
+                    
+                    <h4>Duplicate Detection</h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="duplicate-progress-fill"></div>
+                    </div>
+                    <p class="progress-text" id="duplicate-progress-text"></p>
+                </div>
+                
+                <div id="analysis-results" class="results-box" style="display: none;">
+                    <h3>Analysis Complete</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h4>Metadata</h4>
+                            <p>Extracted: <span id="metadata-extracted">0</span></p>
+                            <p>Failed: <span id="metadata-failed">0</span></p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Duplicates</h4>
+                            <p>Groups: <span id="duplicate-groups">0</span></p>
+                            <p>Space savings: <span id="space-savings">0</span> GB</p>
+                        </div>
+                    </div>
+                    
+                    <div id="duplicates-list" class="duplicates-container">
+                        <h4>Duplicate Groups (Preview)</h4>
+                        <div id="duplicate-items"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 3: Migration -->
+            <section id="migration-section" class="step-section">
+                <h2>Step 3: Migration</h2>
+                <div class="input-group">
+                    <input type="text" id="target-path" placeholder="e.g., F:\music production" value="F:\music production">
+                    <button onclick="openDirectoryPicker('target')" class="browse-btn">Browse</button>
+                    <button onclick="createTargetDirectory()" class="browse-btn">Create Directory</button>
+                </div>
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" id="skip-duplicates" checked>
+                        Skip duplicates (keep best quality only)
+                    </label>
+                    <label>
+                        <input type="checkbox" id="create-target-if-missing" checked>
+                        Create target directory if it doesn't exist
+                    </label>
+                </div>
+                <div class="button-group">
+                    <button onclick="testMigration()" id="test-btn">Test Migration</button>
+                    <button onclick="startMigration()" id="migrate-btn">Start Migration</button>
+                    <button onclick="stopMigration()" id="stop-migrate-btn" style="display: none;">Stop Migration</button>
+                </div>
+                
+                <div class="progress-container" id="migration-progress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="migration-progress-fill"></div>
+                    </div>
+                    <p class="progress-text" id="migration-progress-text"></p>
+                </div>
+                
+                <div id="test-results" class="results-box" style="display: none;">
+                    <h3>Test Migration Preview</h3>
+                    <div id="test-mappings"></div>
+                </div>
+                
+                <div id="migration-results" class="results-box" style="display: none;">
+                    <h3>Migration Results</h3>
+                    <p>Migrated: <span id="files-migrated">0</span></p>
+                    <p>Skipped: <span id="files-skipped">0</span></p>
+                    <p>Failed: <span id="files-failed">0</span></p>
+                </div>
+            </section>
+
+            <!-- Step 4: Audio Analysis -->
+            <section id="audio-analysis-section" class="step-section">
+                <h2>Step 4: Audio Analysis</h2>
+                <p class="info-text">Analyze BPM, key signature, and other audio features</p>
+                <button onclick="startAudioAnalysis()" id="audio-analyze-btn">Analyze Audio</button>
+                <button onclick="stopAudioAnalysis()" id="stop-audio-btn" style="display: none;">Stop Analysis</button>
+                
+                <div class="progress-container" id="audio-progress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="audio-progress-fill"></div>
+                    </div>
+                    <p class="progress-text" id="audio-progress-text"></p>
+                </div>
+                
+                <div id="audio-results" class="results-box" style="display: none;">
+                    <h3>Audio Analysis Results</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h4>Overview</h4>
+                            <p>Analyzed: <span id="audio-analyzed">0</span></p>
+                            <p>Average BPM: <span id="avg-bpm">0</span></p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Key Distribution</h4>
+                            <div id="key-distribution"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Files Browser -->
+            <section id="files-section" class="step-section">
+                <h2>Library Browser</h2>
+                <button onclick="loadFiles()">Load Files</button>
+                <div id="files-table-container">
+                    <table id="files-table">
+                        <thead>
+                            <tr>
+                                <th>Artist</th>
+                                <th>Title</th>
+                                <th>Album</th>
+                                <th>Status</th>
+                                <th>Size</th>
+                            </tr>
+                        </thead>
+                        <tbody id="files-tbody">
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <button onclick="previousPage()" id="prev-page">Previous</button>
+                        <span id="page-info">Page 1</span>
+                        <button onclick="nextPage()" id="next-page">Next</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Progress Modal (for detailed logs) -->
+        <div id="progress-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h3 id="modal-title">Operation Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="modal-progress-fill"></div>
+                </div>
+                <p id="modal-progress-text"></p>
+                <div id="progress-log">
+                    <!-- Log entries will be added here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Modal -->
+        <div id="error-modal" class="modal hidden">
+            <div class="modal-content error">
+                <span class="close" onclick="closeErrorModal()">&times;</span>
+                <h3>Error</h3>
+                <p id="error-message"></p>
+            </div>
+        </div>
+
+        <!-- Directory Picker Modal -->
+        <div id="dir-picker-modal" class="modal hidden">
+            <div class="modal-content dir-picker">
+                <span class="close" onclick="closeDirectoryPicker()">&times;</span>
+                <h3>Select Directory</h3>
+                <div class="dir-path-bar">
+                    <input type="text" id="current-dir-path" readonly>
+                    <button onclick="navigateUp()" id="up-btn">↑ Up</button>
+                </div>
+                <div id="dir-list" class="dir-list"></div>
+                <div class="dir-picker-buttons">
+                    <button onclick="selectCurrentDirectory()" class="primary">Select This Folder</button>
+                    <button onclick="closeDirectoryPicker()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Music Library Migrator v1.0 | <a href="/docs" target="_blank">API Documentation</a></p>
+    </footer>
+    
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+version: 0.2.2
+display:
+  show_ids: true
+  date_format: relative
+  max_description_lines: 3
+kanban:
+  columns:
+  - todo
+  - doing
+  - review
+  - done
+  wip_limit:
+    doing: 5
+agents:
+  types:
+    shell:
+      command: $SHELL
+      command_windows: powershell.exe
+      args:
+      - -l
+      args_windows:
+      - -NoExit
+      accepts_prompt: false
+      trust_required: false
+    claude:
+      command: claude
+      command_windows: claude.cmd
+      args: []
+      accepts_prompt: true
+      trust_required: true
+    python:
+      command: python
+      command_windows: python.exe
+      args:
+      - -u
+      accepts_prompt: false
+      trust_required: false
+      env:
+        PYTHONUNBUFFERED: '1'
+prompts:
+  templates:
+    task_agent: |
+      You are working on task {{task_id}}: {{task_title}}
+
+      {{#if description}}
+      Task Description:
+      {{description}}
+      {{/if}}
+
+      {{#if (eq status "doing")}}
+      This task is currently in progress. Please continue working on it.
+      {{else if (eq status "todo")}}
+      This is a new task. Please start implementing it.
+      {{else if (eq status "review")}}
+      This task is in review. Please review the implementation and make any necessary adjustments.
+      {{/if}}
+
+      {{#if tags}}
+      Tags: {{#each tags}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+      {{/if}}
+
+      {{#if links}}
+      Related files:
+      {{#each links}}
+      - {{this}}
+      {{/each}}
+      {{/if}}
+hooks:
+  enabled: []

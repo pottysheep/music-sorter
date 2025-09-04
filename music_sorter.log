@@ -1,0 +1,93 @@
+2025-09-04 12:56:56,718 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 12:56:56,861 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 12:57:11,859 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 12:57:11,895 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 12:57:37,346 - database.db - ERROR - Database error: Mapper 'Mapper[File(files)]' has no property 'metadata'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+2025-09-04 12:57:37,346 - modules.indexer - ERROR - Error getting statistics: Mapper 'Mapper[File(files)]' has no property 'metadata'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+2025-09-04 12:57:37,346 - database.db - ERROR - Database error: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Metadata(metadata)]'. Original exception was: Mapper 'Mapper[File(files)]' has no property 'metadata'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+2025-09-04 12:57:37,346 - modules.audio_analysis - ERROR - Error getting analysis statistics: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Metadata(metadata)]'. Original exception was: Mapper 'Mapper[File(files)]' has no property 'metadata'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+2025-09-04 12:57:37,346 - database.db - ERROR - Database error: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Metadata(metadata)]'. Original exception was: Mapper 'Mapper[File(files)]' has no property 'metadata'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+2025-09-04 12:57:37,346 - modules.migrator - ERROR - Error getting migration status: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Metadata(metadata)]'. Original exception was: Mapper 'Mapper[File(files)]' has no property 'metadata'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
+2025-09-04 12:58:51,298 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 12:58:51,334 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 12:58:51,335 - music_sorter - INFO - Shutting down Music Sorter application...
+2025-09-04 13:09:23,916 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 13:09:23,953 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 13:10:25,191 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 13:10:25,227 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 13:11:46,600 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 13:11:46,636 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 13:11:46,636 - music_sorter - INFO - Shutting down Music Sorter application...
+2025-09-04 13:11:53,908 - database.db - ERROR - Database error: 'Engine' object has no attribute 'func'
+2025-09-04 13:11:53,908 - modules.indexer - ERROR - Error getting statistics: 'Engine' object has no attribute 'func'
+2025-09-04 13:11:54,210 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 13:16:36,280 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 13:16:36,316 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 13:16:36,547 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 13:17:03,691 - database.db - ERROR - Database error: 'Engine' object has no attribute 'func'
+2025-09-04 13:17:03,691 - modules.indexer - ERROR - Error getting statistics: 'Engine' object has no attribute 'func'
+2025-09-04 13:17:03,992 - api.websocket - INFO - WebSocket connected. Total connections: 2
+2025-09-04 13:17:04,592 - api.websocket - INFO - WebSocket disconnected. Total connections: 1
+2025-09-04 13:17:04,593 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 13:23:23,139 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 13:23:23,174 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 13:23:26,418 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 13:25:33,804 - database.db - ERROR - Database error: 'Engine' object has no attribute 'func'
+2025-09-04 13:25:33,804 - modules.indexer - ERROR - Error getting statistics: 'Engine' object has no attribute 'func'
+2025-09-04 13:25:34,091 - api.websocket - INFO - WebSocket connected. Total connections: 2
+2025-09-04 13:25:34,568 - api.websocket - INFO - WebSocket disconnected. Total connections: 1
+2025-09-04 13:25:34,568 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 13:25:49,143 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\Best of Bootie 2014...
+2025-09-04 13:25:49,144 - modules.indexer - INFO - Found approximately 20 audio files (0.18 GB)
+2025-09-04 13:25:50,156 - database.db - ERROR - Database error: 'Engine' object has no attribute 'func'
+2025-09-04 13:25:50,156 - modules.indexer - ERROR - Error getting statistics: 'Engine' object has no attribute 'func'
+2025-09-04 13:25:53,152 - modules.metadata - INFO - Starting metadata extraction...
+2025-09-04 13:25:53,154 - modules.metadata - INFO - Extracting metadata for 20 files
+2025-09-04 13:25:53,395 - modules.deduplicator - INFO - Starting duplicate detection...
+2025-09-04 13:25:53,405 - modules.deduplicator - INFO - Saved 0 duplicate groups to database
+2025-09-04 13:25:53,405 - modules.deduplicator - INFO - Found 0 duplicate groups with 0 files
+2025-09-04 13:25:53,406 - modules.deduplicator - INFO - Potential space savings: 0.00 GB
+2025-09-04 13:25:54,178 - database.db - ERROR - Database error: 'Engine' object has no attribute 'func'
+2025-09-04 13:25:54,178 - modules.indexer - ERROR - Error getting statistics: 'Engine' object has no attribute 'func'
+2025-09-04 13:26:22,944 - modules.migrator - INFO - Starting library migration to F:\music production
+2025-09-04 13:26:22,952 - modules.migrator - INFO - Migrating 20 files (skip_duplicates=True)
+2025-09-04 13:26:22,974 - modules.migrator - INFO - Migration complete: 20 migrated, 0 skipped, 0 failed
+2025-09-04 13:35:43,675 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 13:35:43,711 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 13:35:46,431 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 13:36:02,913 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 13:36:02,951 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 13:36:02,952 - music_sorter - INFO - Shutting down Music Sorter application...
+2025-09-04 13:36:05,725 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 13:36:05,725 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 13:36:06,075 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 13:37:31,594 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 13:37:31,634 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 13:37:31,635 - music_sorter - INFO - Shutting down Music Sorter application...
+2025-09-04 13:53:14,649 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 13:53:14,684 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 13:53:14,942 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 14:01:56,497 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 14:01:56,498 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 14:01:56,847 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 14:02:15,573 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\Best of Bootie 2014...
+2025-09-04 14:02:15,574 - modules.indexer - INFO - Found approximately 20 audio files (0.18 GB)
+2025-09-04 14:02:20,609 - modules.metadata - INFO - Starting metadata extraction...
+2025-09-04 14:02:20,611 - modules.metadata - INFO - Extracting metadata for 0 files
+2025-09-04 14:02:20,612 - modules.deduplicator - INFO - Starting duplicate detection...
+2025-09-04 14:02:20,618 - modules.deduplicator - INFO - Saved 0 duplicate groups to database
+2025-09-04 14:02:20,618 - modules.deduplicator - INFO - Found 0 duplicate groups with 0 files
+2025-09-04 14:02:20,618 - modules.deduplicator - INFO - Potential space savings: 0.00 GB
+2025-09-04 14:02:46,574 - api.routes - INFO - Created target directory: F:\music production
+2025-09-04 14:02:46,574 - modules.migrator - INFO - Starting library migration to F:\music production
+2025-09-04 14:02:46,577 - modules.migrator - INFO - Migrating 20 files (skip_duplicates=True)
+2025-09-04 14:02:46,600 - modules.migrator - INFO - Migration complete: 20 migrated, 0 skipped, 0 failed
+2025-09-04 14:02:54,291 - modules.migrator - INFO - Starting library migration to F:\music production
+2025-09-04 14:02:54,294 - modules.migrator - INFO - Migrating 20 files (skip_duplicates=True)
+2025-09-04 14:03:02,549 - modules.migrator - INFO - Migration complete: 20 migrated, 0 skipped, 0 failed
+2025-09-04 14:03:06,107 - modules.audio_analysis - INFO - Starting audio analysis...
+2025-09-04 14:03:06,109 - modules.audio_analysis - INFO - Analyzing 20 audio files
+2025-09-04 14:04:24,422 - modules.audio_analysis - INFO - Audio analysis complete: 20 analyzed, 0 failed
+2025-09-04 14:05:56,080 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 14:05:56,080 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 14:05:56,419 - api.websocket - INFO - WebSocket connected. Total connections: 1

@@ -1,0 +1,39 @@
+# Music Sorter Configuration
+
+source:
+  batch_size: 100
+  io_threads: 1  # Keep at 1 for HDD to avoid seek thrashing
+  
+target:
+  io_threads: 4  # Parallel writes for SSD
+  base_path: "F:/music production"
+  
+deduplication:
+  min_song_size_mb: 2
+  max_sample_size_mb: 0.5
+  hash_chunk_size_mb: 1  # Read first MB for quick hash
+  
+audio_analysis:
+  enabled: true
+  bpm_detection: true
+  key_detection: true
+  batch_size: 10
+  
+api_keys:
+  acoustid: ""  # Get from https://acoustid.org/
+  musicbrainz_user_agent: "MusicSorter/1.0"
+  
+database:
+  path: "music_library.db"
+  
+logging:
+  level: "INFO"
+  file: "music_sorter.log"
+  
+server:
+  host: "0.0.0.0"
+  port: 8000
+  
+checkpoint:
+  interval: 100  # Save checkpoint every N files
+  enabled: true

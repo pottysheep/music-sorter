@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv init:*)",
+      "Bash(uv add:*)",
+      "Write(**)",
+      "Read(**)",
+      "Read(/C:\\Projects\\music sorter/**)",
+      "Read(/C:\\Projects\\music sorter\\database/**)",
+      "Read(/C:\\Projects\\music sorter\\api/**)",
+      "Bash(uv run:*)",
+      "Read(/C:\\Projects\\music sorter\\database/**)",
+      "Read(/C:\\Projects\\music sorter\\modules/**)",
+      "Bash(curl:*)",
+      "Read(/C:\\Projects\\music sorter\\database/**)",
+      "Bash(tasklist)",
+      "Bash(taskkill:*)",
+      "Read(/C:\\Projects\\music sorter/**)",
+      "Read(/C:\\Projects\\music sorter\\static/**)",
+      "Read(/C:\\Projects\\music sorter\\modules/**)",
+      "Read(/C:\\Projects\\music sorter\\modules/**)",
+      "Read(/C:\\Projects\\music sorter\\modules/**)",
+      "Read(/C:\\Projects\\music sorter\\static/**)",
+      "Read(/C:\\Projects\\music sorter\\static/**)",
+      "Read(/C:\\Projects\\music sorter\\static/**)",
+      "Read(/C:\\Projects\\music sorter\\static/**)",
+      "Read(/C:\\Projects\\music sorter\\static/**)",
+      "Read(/C:\\Projects\\music sorter\\api/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

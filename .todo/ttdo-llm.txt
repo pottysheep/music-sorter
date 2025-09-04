@@ -1,0 +1,178 @@
+# ttdo version: 0.2.2
+ttdo - Task Management for AI Agents
+
+Quick Start:
+1. Add task: ttdo add "Implement feature X" -d "Detailed description"
+2. Set active: ttdo active 1
+3. Start work: ttdo doing (moves active task)
+4. Complete: ttdo done (moves active task)
+5. View all: ttdo ls (opens interactive UI)
+
+Commands:
+- ttdo init - Initialize todo directory with auto shell completions (run once per project)
+- ttdo init -n - Initialize without installing shell completions (short form)
+- ttdo add "title" [-d "description"] [-t tag1,tag2] [-a assignee] [-l @file:line]
+- ttdo ls [-s STATUS] [-t TAG] [-p PRIORITY] [--text] - List tasks (UI mode without filters)
+  - -s/--status: Filter by status
+  - -t/--tag: Filter by tag
+  - -p/--priority: Filter by priority (low/medium/high/critical)
+  - --tags: Filter by multiple tags (comma-separated)
+  - --priorities: Filter by multiple priorities (comma-separated)
+  - -a/--assignee: Filter by assignee
+  - --text: Force text output (no TUI)
+  - -D/--show-done: Include done column (hidden by default)
+  - -A/--show-all: Show all columns
+  - -n/--limit: Limit number of results
+  - --sort: Sort by field (id/priority/created/updated)
+  - --reverse: Reverse sort order
+  - --no-header: Hide column headers in text mode
+- ttdo show <id>[,id2,...] - Show task details (supports multiple IDs)
+- ttdo move <id>[,id2,...] <status> - Move task(s) to any status
+- ttdo <status> <id>[,id2,...] - Shortcut syntax (e.g., ttdo doing 1,2,3)
+- ttdo <status> - Move active task to status (e.g., ttdo done)
+- ttdo <status> -a - Explicitly move active task
+- ttdo <status> <id>[,id2,...] -a - Move specified tasks AND active task
+- ttdo <status> <id>[,id2,...] -i - Move specified tasks but NOT active task
+- ttdo update <id> [options] - Update existing task
+  - -t/--title: Update title
+  - -d/--description: Update description
+  - -p/--priority: Update priority
+  - --tags: Replace all tags (comma-separated)
+  - --add-tag: Add a single tag
+  - --remove-tag: Remove a single tag
+  - -a/--assignee: Update assignee
+  - --no-assignee: Remove assignee
+  - -l/--link: Add file link
+  - --remove-link: Remove link by index
+  - -s/--status: Update status (triggers workflows)
+- ttdo rm <id> - Remove task
+- ttdo comment <id> "message" - Add a comment to a task
+- ttdo activity <id> --action <action> --message <message> [--author <name>] - Log activity
+- ttdo --help - Show help for any command
+
+Active Task:
+- ttdo active [id] - Show or set active task
+- ttdo inactive - Unset the active task
+- ttdo git-info - Output active task for git commits
+
+Column Management:
+- ttdo column list - Show all configured status columns
+- ttdo column add <status> - Add new status column
+- ttdo column remove <status> [move-to] - Remove column, optionally move tasks
+- ttdo column rename <old> <new> - Rename column and update all tasks
+
+Terminal UI (ttdo ls):
+- Arrow keys or hjkl to navigate
+- Shift+↑/↓ to jump to top/bottom
+- Enter to set active task
+- m to move task (then type column number or name)
+- n/p to move task to next/previous column
+- a to add new task
+- d to show task details (with activities)
+- r to remove task
+- v to toggle single/multi-line view
+- o to cycle sort options
+- s to search/filter
+- q to quit
+
+Git Integration:
+1. During init, choose to set up git hook when prompted
+2. Or manually: cp .git/hooks/prepare-commit-msg from ttdo-prepare-commit-msg
+3. Set active task before committing
+4. Commits will include [ttdo:#ID] Task title
+
+Configuration:
+- ttdo config - Show all settings
+- ttdo config <key> - Show specific setting value
+- Edit .todo/config.yaml to customize columns, WIP limits, display options
+- Default columns: todo, doing, review, done
+- Default WIP limit: 5 for 'doing' column
+- Columns can be simple strings or detailed with descriptions:
+  columns:
+    - name: todo
+      description: "New tasks that haven't been started"
+    - name: doing
+      description: "Tasks currently in progress"
+      entry_instruction: "Set assignee and add estimated completion date"
+
+Data Migrations:
+- ttdo migrate -c - Check if migration is needed (short form)
+- ttdo migrate - Run migrations with automatic backup
+- ttdo migrate -n - Run without backup (not recommended, short form)
+- Version tracking in all files ensures smooth upgrades
+- Files are backed up to .todo/backup-YYYYMMDD_HHMMSS/
+
+Shell Completions:
+- Installed automatically during 'ttdo init' (detected from $SHELL)
+- Manual installation if needed:
+  - ttdo completions bash > completion.bash && source completion.bash
+  - ttdo completions zsh > _ttdo && fpath+=($PWD)
+  - ttdo completions fish > ttdo.fish && source ttdo.fish
+
+File Linking:
+- Reference code: -l @src/main.rs:42
+- Reference docs: -l @README.md
+- Multiple links: -l @file1 -l @file2
+
+Best Practices for AI Agents:
+- ALWAYS run 'ttdo column list' first to see available status columns
+- Check 'ttdo config' to understand project-specific settings and workflows
+- Use 'ttdo ls --text' to see current task distribution across columns
+- Keep titles concise (<50 chars)
+- Use tags for categorization
+- Link relevant files for context
+- Set active task when starting work
+- Use shortcuts: ttdo doing, ttdo done
+- Use -a flag to include active task with other moves
+- Use -i flag to exclude active task from bulk moves
+- Use ttdo inactive to clear active task when done
+- Done column is hidden by default in text output (use -D to show)
+- Use ttdo update for quick task modifications
+- Filter by priority (-p) to focus on important tasks
+- Note: Column names vary by project (not always todo/doing/done)
+- Enable git hook for commit tracking
+
+Agent System:
+- ttdo agent daemon - Start daemon (required for all agent operations)
+- ttdo agent daemon --status - Check if daemon is running
+- ttdo agent daemon --stop - Stop daemon and all agents
+- ttdo agent start <id> [--type TYPE] - Start agent for task
+  - Default: Uses 'claude' for tasks with descriptions, 'shell' otherwise
+  - --type shell: Interactive shell in task worktree
+  - --type python: Python interpreter with unbuffered output
+  - --type <custom>: Any agent type defined in config.yaml
+  - Agent prompts use templates from config.yaml prompts.templates section
+- ttdo agent attach <id> - Attach to running agent (Ctrl+D to detach)
+- ttdo agent status - List all active agent sessions
+- ttdo agent stop <id> - Stop agent session
+- ttdo agent diff <id> - View changes made by agent
+- ttdo agent accept <id> [-m "message"] - Merge agent's work
+- ttdo agent cleanup [--force] - Clean up completed agent worktrees
+- ttdo agent remove <id> [--force] - Remove agent worktree
+- ttdo agent recover - Recover orphaned agent sessions
+
+Best Practices for Agents:
+- Use ttdo commands directly (ttdo doing, ttdo review, ttdo done)
+- Add comments: ttdo comment <id> "Starting implementation"
+- Log activities: ttdo activity <id> --action reviewed --message "LGTM"
+- Move tasks through workflow to show progress
+- Activities are shown in task details with 🤖 (agents) or 👤 (humans)
+- Each agent works in isolated git worktree (no conflicts)
+- Agents and humans share the same task board
+
+Multi-Agent Workflows:
+- Configure workflows in config.yaml to trigger agents automatically
+- trigger_source: "user", "agent", or "any"
+- agent_mode: "ephemeral" (quick), "worktree" (needs files), "attached" (interactive)
+- Agents can trigger other agents through column transitions
+
+Prompt Templates:
+- Customize agent prompts in config.yaml under prompts.templates
+- Default template: task_agent (used for all agents unless overridden)
+- Create custom templates for specific agent types (e.g., code_reviewer, doc_writer)
+- Templates use Handlebars syntax with access to task context
+- Available variables: task_id, task_title, description, status, priority, tags, links, columns
+- Conditional logic: {{#if description}}...{{/if}}
+- Loops: {{#each tags}}{{this}}{{/each}}
+
+Note: Task IDs are simple numbers (1, 2, 3, etc.)
