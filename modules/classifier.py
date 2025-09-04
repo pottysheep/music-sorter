@@ -1,5 +1,6 @@
 """Audio file classifier - determines if files are songs or samples"""
 import logging
+import random
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 from datetime import datetime
@@ -13,9 +14,18 @@ logger = logging.getLogger(__name__)
 
 class AudioClassifier:
     def __init__(self):
-        # Size thresholds (will be part of more complex logic later)
-        self.min_song_size = config.get('deduplication.min_song_size_mb', 2) * 1024 * 1024
-        self.max_sample_size = config.get('deduplication.max_sample_size_mb', 0.5) * 1024 * 1024
+        # Load classification categories from config
+        self.categories = config.get('classification.categories', ['song', 'sample', 'stem', 'unknown'])
+        
+        # For now, use random classification with weighted probabilities
+        # This will be replaced with ML model later
+        self.classification_weights = {
+            'song': 0.5,    # 50% chance
+            'sample': 0.25,  # 25% chance
+            'stem': 0.2,     # 20% chance
+            'unknown': 0.05  # 5% chance
+        }
+        
         self.progress_callback = None
         self.should_stop = False
         
@@ -54,9 +64,8 @@ class AudioClassifier:
                 'message': f"Starting classification of {total_files} files"
             })
         
-        songs_count = 0
-        samples_count = 0
-        unknown_count = 0
+        # Initialize counters for all categories
+        category_counts = {cat: 0 for cat in self.categories}
         errors = []
         
         try:
@@ -71,6 +80,9 @@ class AudioClassifier:
                         break
                     
                     try:
+                        # Re-attach file to current session
+                        file = session.merge(file)
+                        
                         # Classify the file
                         classification = self._classify_file(file, session)
                         
@@ -85,16 +97,12 @@ class AudioClassifier:
                         session.add(class_record)
                         
                         # Update counters
-                        if classification['type'] == 'song':
-                            songs_count += 1
-                        elif classification['type'] == 'sample':
-                            samples_count += 1
-                        else:
-                            unknown_count += 1
+                        category_counts[classification['type']] = category_counts.get(classification['type'], 0) + 1
                         
                         # Log progress every 100 files
                         if i % 100 == 0 and i > 0:
-                            logger.info(f"Classification progress: {i}/{total_files} - Songs: {songs_count}, Samples: {samples_count}, Unknown: {unknown_count}")
+                            counts_str = ', '.join([f"{cat.capitalize()}: {category_counts.get(cat, 0)}" for cat in self.categories])
+                            logger.info(f"Classification progress: {i}/{total_files} - {counts_str}")
                             session.commit()
                         
                         # Update progress more frequently for UI
@@ -104,7 +112,7 @@ class AudioClassifier:
                                     'operation': 'classification',
                                     'progress': i + 1,
                                     'total': total_files,
-                                    'message': f"Classified {i + 1}/{total_files} files (Songs: {songs_count}, Samples: {samples_count})"
+                                    'message': f"Classified {i + 1}/{total_files} files (Songs: {category_counts.get('song', 0)}, Samples: {category_counts.get('sample', 0)}, Stems: {category_counts.get('stem', 0)})"
                                 })
                     
                     except Exception as e:
@@ -120,7 +128,7 @@ class AudioClassifier:
                         'operation': 'classification',
                         'progress': total_files,
                         'total': total_files,
-                        'message': f"Classification complete: {songs_count} songs, {samples_count} samples, {unknown_count} unknown"
+                        'message': f"Classification complete: {category_counts.get('song', 0)} songs, {category_counts.get('sample', 0)} samples, {category_counts.get('stem', 0)} stems, {category_counts.get('unknown', 0)} unknown"
                     })
         
         except Exception as e:
@@ -129,14 +137,17 @@ class AudioClassifier:
         
         results = {
             'total_files': total_files,
-            'songs': songs_count,
-            'samples': samples_count,
-            'unknown': unknown_count,
+            'songs': category_counts.get('song', 0),
+            'samples': category_counts.get('sample', 0),
+            'stems': category_counts.get('stem', 0),
+            'unknown': category_counts.get('unknown', 0),
             'errors': len(errors),
-            'error_files': errors[:10]
+            'error_files': errors[:10],
+            'category_counts': category_counts
         }
         
-        logger.info(f"Classification complete: {songs_count} songs, {samples_count} samples, {unknown_count} unknown")
+        counts_str = ', '.join([f"{category_counts.get(cat, 0)} {cat}s" for cat in self.categories])
+        logger.info(f"Classification complete: {counts_str}")
         
         return results
     
@@ -182,51 +193,54 @@ class AudioClassifier:
     
     def _classify_file(self, file: File, session) -> Dict[str, Any]:
         """
-        Classify a single file as song or sample
+        Classify a single file as song, sample, stem, or unknown
         
-        Currently uses simple size-based classification.
-        Will be enhanced with:
-        - Duration analysis
-        - Metadata patterns
-        - Path analysis
-        - Audio characteristics
+        Currently uses random weighted classification as placeholder.
+        Will be replaced with ML model that considers:
+        - Audio features (duration, spectral characteristics, repetition)
+        - Metadata (tags, embedded info)
+        - Path and filename patterns
+        - File format and encoding
         """
-        classification = {
-            'type': 'unknown',
-            'confidence': 0.0,
-            'method': 'size_threshold',
-            'details': {}
-        }
-        
         # Get metadata if available
         metadata = session.query(Metadata).filter_by(file_id=file.id).first()
         
-        # Simple size-based classification (to be enhanced)
-        if file.file_size >= self.min_song_size:
-            classification['type'] = 'song'
-            classification['confidence'] = 0.8
-            classification['details']['size_mb'] = file.file_size / 1024 / 1024
-            classification['details']['reason'] = 'File size >= 2MB'
-            
-        elif file.file_size <= self.max_sample_size:
-            classification['type'] = 'sample'
-            classification['confidence'] = 0.8
-            classification['details']['size_mb'] = file.file_size / 1024 / 1024
-            classification['details']['reason'] = 'File size <= 0.5MB'
-            
-        else:
-            # Files between 0.5MB and 2MB - need more analysis
-            # For now, classify as unknown
-            classification['type'] = 'unknown'
-            classification['confidence'] = 0.3
-            classification['details']['size_mb'] = file.file_size / 1024 / 1024
-            classification['details']['reason'] = 'File size between 0.5MB and 2MB'
-            
-            # Future enhancements:
-            # - Check duration (if available in metadata)
-            # - Check path for keywords like 'samples', 'loops', 'one-shots'
-            # - Check filename patterns
-            # - Analyze audio characteristics
+        # Random weighted classification (temporary - will be replaced with ML)
+        # Using weighted random choice for realistic distribution
+        categories = list(self.classification_weights.keys())
+        weights = list(self.classification_weights.values())
+        
+        # Choose category based on weighted probabilities
+        classification_type = random.choices(categories, weights=weights)[0]
+        
+        # Generate mock confidence based on type (temporary)
+        confidence_ranges = {
+            'song': (0.7, 0.95),
+            'sample': (0.6, 0.85),
+            'stem': (0.5, 0.8),
+            'unknown': (0.1, 0.3)
+        }
+        
+        min_conf, max_conf = confidence_ranges.get(classification_type, (0.1, 0.3))
+        confidence = random.uniform(min_conf, max_conf)
+        
+        classification = {
+            'type': classification_type,
+            'confidence': round(confidence, 2),
+            'method': 'random_weighted',  # Will be 'ml_model' in future
+            'details': {
+                'size_mb': file.file_size / 1024 / 1024,
+                'path': str(Path(file.source_path).parent.name),
+                'filename': Path(file.source_path).name,
+                'reason': 'Temporary random classification - ML model pending'
+            }
+        }
+        
+        # Add metadata details if available
+        if metadata:
+            classification['details']['duration'] = metadata.duration_seconds
+            classification['details']['format'] = metadata.format
+            classification['details']['bitrate'] = metadata.bitrate
         
         return classification
     
@@ -238,6 +252,7 @@ class AudioClassifier:
                 
                 songs = session.query(Classification).filter_by(file_type='song').count()
                 samples = session.query(Classification).filter_by(file_type='sample').count()
+                stems = session.query(Classification).filter_by(file_type='stem').count()
                 unknown = session.query(Classification).filter_by(file_type='unknown').count()
                 
                 # Get confidence distribution
@@ -258,6 +273,7 @@ class AudioClassifier:
                     'total_classified': total,
                     'songs': songs,
                     'samples': samples,
+                    'stems': stems,
                     'unknown': unknown,
                     'confidence': {
                         'high': high_confidence,

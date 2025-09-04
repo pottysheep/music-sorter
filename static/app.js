@@ -266,7 +266,9 @@ async function pollScanStatus() {
             
             // Show results
             document.getElementById('scan-results').style.display = 'block';
-            document.getElementById('scan-files-count').textContent = status.result.files_added;
+            document.getElementById('scan-files-count').textContent = status.result.files_added || 0;
+            document.getElementById('scan-files-skipped').textContent = status.result.files_skipped || 0;
+            document.getElementById('scan-errors').textContent = status.result.errors || 0;
             document.getElementById('scan-time').textContent = Math.round(status.result.elapsed_time);
             document.getElementById('scan-speed').textContent = Math.round(status.result.files_per_second);
             
@@ -321,6 +323,7 @@ async function pollAnalysisStatus() {
             if (status.classification && status.classification.result) {
                 document.getElementById('songs-count').textContent = status.classification.result.songs || 0;
                 document.getElementById('samples-count').textContent = status.classification.result.samples || 0;
+                document.getElementById('stems-count').textContent = status.classification.result.stems || 0;
                 document.getElementById('unknown-count').textContent = status.classification.result.unknown || 0;
             }
             
@@ -533,17 +536,26 @@ async function loadFiles() {
     
     try {
         const offset = (currentPage - 1) * filesPerPage;
-        const data = await apiCall(`/files?limit=${filesPerPage}&offset=${offset}`);
+        const fileType = document.getElementById('file-type-filter').value;
+        
+        let url = `/files?limit=${filesPerPage}&offset=${offset}`;
+        if (fileType) {
+            url += `&file_type=${fileType}`;
+        }
+        
+        const data = await apiCall(url);
         
         const tbody = document.getElementById('files-tbody');
         tbody.innerHTML = '';
         
         data.files.forEach(file => {
             const tr = document.createElement('tr');
+            const typeClass = file.classification ? `type-${file.classification.type}` : 'type-unclassified';
             tr.innerHTML = `
                 <td>${file.metadata?.artist || '-'}</td>
                 <td>${file.metadata?.title || '-'}</td>
                 <td>${file.metadata?.album || '-'}</td>
+                <td><span class="status-badge ${typeClass}">${file.classification?.type || 'unclassified'}</span></td>
                 <td><span class="status-badge status-${file.status}">${file.status}</span></td>
                 <td>${(file.size / 1024 / 1024).toFixed(2)} MB</td>
             `;

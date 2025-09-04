@@ -97,6 +97,7 @@ function collectFilters() {
         const key = document.getElementById('filter-key').value;
         const sizeMin = document.getElementById('filter-size-min').value;
         const sizeMax = document.getElementById('filter-size-max').value;
+        const classification = document.getElementById('filter-classification').value;
         const status = document.getElementById('filter-status').value;
         const duplicates = document.getElementById('filter-duplicates').value;
         
@@ -110,6 +111,7 @@ function collectFilters() {
         if (key) filters.key_signature = key;
         if (sizeMin) filters.size_min_mb = parseFloat(sizeMin);
         if (sizeMax) filters.size_max_mb = parseFloat(sizeMax);
+        if (classification) filters.file_type = classification;
         if (status) filters.status = status;
         if (duplicates) filters.has_duplicates = duplicates === 'true';
     }
@@ -135,12 +137,15 @@ function displaySearchResults() {
         tbody.innerHTML = searchResults.map(file => {
             const metadata = file.metadata || {};
             const audio = file.audio_analysis || {};
+            const classification = file.classification || {};
+            const typeClass = classification.type ? `type-${classification.type}` : 'type-unclassified';
             
             return `
                 <tr>
                     <td>${metadata.artist || '-'}</td>
                     <td>${metadata.title || '-'}</td>
                     <td>${metadata.album || '-'}</td>
+                    <td><span class="status-badge ${typeClass}">${classification.type || 'unclassified'}</span></td>
                     <td>${metadata.genre || '-'}</td>
                     <td>${metadata.year || '-'}</td>
                     <td>${audio.bpm ? Math.round(audio.bpm) : '-'}</td>

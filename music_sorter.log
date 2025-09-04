@@ -233,3 +233,283 @@ FROM files LEFT OUTER JOIN metadata AS metadata_1 ON files.id = metadata_1.file_
 2025-09-04 16:32:34,092 - modules.deduplicator - INFO - Starting duplicate detection...
 2025-09-04 16:32:34,094 - database.db - ERROR - Database error: Instance <File at 0x257e8e4c410> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
 2025-09-04 16:32:34,095 - api.routes - ERROR - Analysis error: Instance <File at 0x257e8e4c410> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-04 16:52:30,107 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 16:52:30,143 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 16:52:30,473 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 16:52:35,546 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 16:52:35,546 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 16:52:35,894 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 16:52:38,256 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 16:52:38,257 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 17:26:47,355 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 17:26:47,397 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 17:57:49,105 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 17:57:50,563 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 17:57:50,563 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 17:58:17,527 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 17:58:17,561 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 17:58:21,812 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 17:58:23,132 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 17:58:23,132 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 18:00:08,756 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 18:27:06,082 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 18:27:06,082 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 18:27:06,190 - music_sorter - INFO - Shutting down Music Sorter application...
+2025-09-04 18:27:07,808 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 18:27:07,847 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 18:27:09,428 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 18:27:12,928 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 18:27:12,929 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 18:27:13,277 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 18:27:14,348 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 18:27:14,348 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 18:27:14,673 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 18:27:14,974 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 18:27:14,974 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 18:31:24,372 - music_sorter - INFO - Shutting down Music Sorter application...
+2025-09-04 18:31:27,663 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 18:31:27,697 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 18:31:39,045 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 18:31:59,007 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 18:31:59,008 - api.routes - INFO - Scanning directory: D:\DOCS\Music\01. Compositions (resume=True)
+2025-09-04 18:31:59,008 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\01. Compositions...
+2025-09-04 18:31:59,015 - modules.indexer - INFO - Found approximately 62 audio files (2.12 GB)
+2025-09-04 18:31:59,068 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 18:32:19,070 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 18:32:19,070 - api.routes - INFO - Scanning directory: D:\DOCS\Music\05. Colabs (resume=True)
+2025-09-04 18:32:19,070 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\05. Colabs...
+2025-09-04 18:32:19,071 - modules.indexer - INFO - Found approximately 0 audio files (0.00 GB)
+2025-09-04 18:32:19,074 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 18:32:22,457 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 18:32:22,458 - api.routes - INFO - Scanning directory: D:\DOCS\Music\05. Colabs (resume=True)
+2025-09-04 18:32:22,458 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\05. Colabs...
+2025-09-04 18:32:22,458 - modules.indexer - INFO - Found approximately 0 audio files (0.00 GB)
+2025-09-04 18:32:22,462 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 18:32:23,936 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 18:32:23,936 - api.routes - INFO - Scanning directory: D:\DOCS\Music\05. Colabs (resume=True)
+2025-09-04 18:32:23,937 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\05. Colabs...
+2025-09-04 18:32:23,937 - modules.indexer - INFO - Found approximately 0 audio files (0.00 GB)
+2025-09-04 18:32:23,940 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 18:32:28,303 - api.routes - INFO - === STARTING ANALYSIS PHASE ===
+2025-09-04 18:32:28,303 - api.routes - INFO - Step 1/3: Extracting metadata from all files...
+2025-09-04 18:32:28,303 - modules.metadata - INFO - Starting metadata extraction...
+2025-09-04 18:32:28,305 - modules.metadata - INFO - Extracting metadata for 0 files
+2025-09-04 18:32:28,307 - api.routes - INFO - Step 2/3: Finding duplicate files...
+2025-09-04 18:32:28,307 - modules.deduplicator - INFO - Starting duplicate detection...
+2025-09-04 18:32:28,308 - modules.deduplicator - INFO - Grouping files by hash...
+2025-09-04 18:32:28,309 - modules.deduplicator - INFO - Processing 62 files for duplicate detection
+2025-09-04 18:32:28,310 - modules.deduplicator - INFO - Found 5 unique hash groups
+2025-09-04 18:32:28,310 - modules.deduplicator - INFO - Analyzing duplicate groups and scoring quality...
+2025-09-04 18:32:28,310 - database.db - ERROR - Database error: Instance <File at 0x28e33e6f9d0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-04 18:32:28,311 - api.routes - ERROR - Analysis error: Instance <File at 0x28e33e6f9d0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-04 18:47:55,994 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 18:47:56,028 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 18:47:56,470 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 18:48:03,839 - api.routes - INFO - === STARTING ANALYSIS PHASE ===
+2025-09-04 18:48:03,839 - api.routes - INFO - Step 1/3: Extracting metadata from all files...
+2025-09-04 18:48:03,839 - modules.metadata - INFO - Starting metadata extraction...
+2025-09-04 18:48:03,879 - modules.metadata - INFO - Extracting metadata for 0 files
+2025-09-04 18:48:03,880 - api.routes - INFO - Metadata extraction complete: 0 extracted, 0 failed
+2025-09-04 18:48:03,880 - api.routes - INFO - Step 2/3: Finding duplicate files...
+2025-09-04 18:48:03,880 - modules.deduplicator - INFO - Starting duplicate detection...
+2025-09-04 18:48:03,881 - modules.deduplicator - INFO - Grouping files by hash...
+2025-09-04 18:48:03,884 - modules.deduplicator - INFO - Processing 62 files for duplicate detection
+2025-09-04 18:48:03,885 - modules.deduplicator - INFO - Found 5 unique hash groups
+2025-09-04 18:48:03,885 - modules.deduplicator - INFO - Analyzing duplicate groups and scoring quality...
+2025-09-04 18:48:03,921 - modules.deduplicator - INFO - Saving duplicate groups to database...
+2025-09-04 18:48:03,927 - database.db - ERROR - Database error: Instance <File at 0x2c510017490> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-04 18:48:03,927 - modules.deduplicator - ERROR - Error saving duplicate groups: Instance <File at 0x2c510017490> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-04 18:48:03,927 - api.routes - ERROR - Analysis error: Instance <File at 0x2c510017890> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-04 18:56:53,410 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 18:56:53,445 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 18:56:56,431 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 18:57:03,498 - api.routes - INFO - === STARTING ANALYSIS PHASE ===
+2025-09-04 18:57:03,498 - api.routes - INFO - Step 1/3: Extracting metadata from all files...
+2025-09-04 18:57:03,498 - modules.metadata - INFO - Starting metadata extraction...
+2025-09-04 18:57:03,514 - modules.metadata - INFO - Extracting metadata for 0 files
+2025-09-04 18:57:03,514 - api.routes - INFO - Metadata extraction complete: 0 extracted, 0 failed
+2025-09-04 18:57:03,514 - api.routes - INFO - Step 2/3: Finding duplicate files...
+2025-09-04 18:57:03,514 - modules.deduplicator - INFO - Starting duplicate detection...
+2025-09-04 18:57:03,514 - modules.deduplicator - INFO - Grouping files by hash...
+2025-09-04 18:57:03,515 - modules.deduplicator - INFO - Processing 62 files for duplicate detection
+2025-09-04 18:57:03,515 - modules.deduplicator - INFO - Found 5 unique hash groups
+2025-09-04 18:57:03,516 - modules.deduplicator - INFO - Analyzing duplicate groups and scoring quality...
+2025-09-04 18:57:03,530 - modules.deduplicator - INFO - Saving duplicate groups to database...
+2025-09-04 18:57:03,543 - modules.deduplicator - INFO - Saved 5 duplicate groups to database
+2025-09-04 18:57:03,547 - modules.deduplicator - INFO - Found 5 duplicate groups with 15 files
+2025-09-04 18:57:03,547 - modules.deduplicator - INFO - Potential space savings: 0.56 GB
+2025-09-04 18:57:03,550 - api.routes - INFO - Step 3/3: Classifying files as songs or samples...
+2025-09-04 18:57:03,550 - modules.classifier - INFO - Starting audio classification...
+2025-09-04 18:57:03,550 - modules.classifier - INFO - Getting files to classify (use_primary_only=True)...
+2025-09-04 18:57:03,577 - modules.classifier - INFO - Found 52 files to classify
+2025-09-04 18:57:03,585 - database.db - ERROR - Database error: Instance <File at 0x1397ebc3710> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-04 18:57:03,585 - modules.classifier - ERROR - Fatal error during classification: Instance <File at 0x1397ebc3710> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-04 18:57:03,585 - api.routes - ERROR - Analysis error: Instance <File at 0x1397ebc3710> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-04 18:57:04,709 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 18:57:04,709 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 18:57:05,054 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 18:58:40,304 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 18:58:40,340 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 18:58:40,477 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 18:58:47,321 - api.routes - INFO - === STARTING ANALYSIS PHASE ===
+2025-09-04 18:58:47,321 - api.routes - INFO - Step 1/3: Extracting metadata from all files...
+2025-09-04 18:58:47,321 - modules.metadata - INFO - Starting metadata extraction...
+2025-09-04 18:58:47,335 - modules.metadata - INFO - Extracting metadata for 0 files
+2025-09-04 18:58:47,335 - api.routes - INFO - Metadata extraction complete: 0 extracted, 0 failed
+2025-09-04 18:58:47,335 - api.routes - INFO - Step 2/3: Finding duplicate files...
+2025-09-04 18:58:47,335 - modules.deduplicator - INFO - Starting duplicate detection...
+2025-09-04 18:58:47,335 - modules.deduplicator - INFO - Grouping files by hash...
+2025-09-04 18:58:47,337 - modules.deduplicator - INFO - Processing 62 files for duplicate detection
+2025-09-04 18:58:47,337 - modules.deduplicator - INFO - Found 5 unique hash groups
+2025-09-04 18:58:47,337 - modules.deduplicator - INFO - Analyzing duplicate groups and scoring quality...
+2025-09-04 18:58:47,351 - modules.deduplicator - INFO - Saving duplicate groups to database...
+2025-09-04 18:58:47,363 - modules.deduplicator - INFO - Saved 5 duplicate groups to database
+2025-09-04 18:58:47,367 - modules.deduplicator - INFO - Found 5 duplicate groups with 15 files
+2025-09-04 18:58:47,367 - modules.deduplicator - INFO - Potential space savings: 0.56 GB
+2025-09-04 18:58:47,367 - api.routes - INFO - Duplicate detection complete: 5 groups found
+2025-09-04 18:58:47,367 - api.routes - INFO - Step 3/3: Classifying files as songs or samples...
+2025-09-04 18:58:47,367 - modules.classifier - INFO - Starting audio classification...
+2025-09-04 18:58:47,367 - modules.classifier - INFO - Getting files to classify (use_primary_only=True)...
+2025-09-04 18:58:47,389 - modules.classifier - INFO - Found 52 files to classify
+2025-09-04 18:58:47,440 - modules.classifier - INFO - Classification complete: 22 songs, 14 samples, 14 stems, 2 unknowns
+2025-09-04 18:58:47,440 - api.routes - INFO - Classification complete: 22 songs, 14 samples, 2 unknown
+2025-09-04 18:58:47,440 - api.routes - INFO - === ANALYSIS PHASE COMPLETE ===
+2025-09-04 18:59:10,609 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 18:59:10,646 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 18:59:13,778 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 18:59:29,346 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 18:59:29,346 - api.routes - INFO - Scanning directory: D:\DOCS\Music\Acapellas (resume=True)
+2025-09-04 18:59:29,346 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\Acapellas...
+2025-09-04 18:59:29,347 - modules.indexer - INFO - Found approximately 1 audio files (0.00 GB)
+2025-09-04 18:59:33,964 - api.routes - INFO - Scan complete: 1 added, 0 skipped, 0 errors
+2025-09-04 18:59:33,964 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 18:59:48,217 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 18:59:48,217 - api.routes - INFO - Scanning directory: D:\DOCS\Music\01. Compositions (resume=True)
+2025-09-04 18:59:48,218 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\01. Compositions...
+2025-09-04 18:59:48,224 - modules.indexer - INFO - Found approximately 62 audio files (2.12 GB)
+2025-09-04 18:59:48,226 - modules.indexer - INFO - Found checkpoint: 0/62
+2025-09-04 18:59:48,226 - modules.indexer - INFO - Resuming from checkpoint: 0 files already processed
+2025-09-04 18:59:48,238 - api.routes - INFO - Scan complete: 0 added, 62 skipped, 0 errors
+2025-09-04 18:59:48,238 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 19:00:36,678 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 19:00:36,678 - api.routes - INFO - Scanning directory: D:\DOCS\Music\01. Compositions\19.01 (resume=True)
+2025-09-04 19:00:36,679 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\01. Compositions\19.01...
+2025-09-04 19:00:36,680 - modules.indexer - INFO - Found approximately 15 audio files (0.98 GB)
+2025-09-04 19:00:36,708 - api.routes - INFO - Scan complete: 0 added, 15 skipped, 0 errors
+2025-09-04 19:00:36,708 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 19:00:39,182 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 19:00:39,182 - api.routes - INFO - Scanning directory: D:\DOCS\Music\01. Compositions\19.01 (resume=True)
+2025-09-04 19:00:39,182 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\01. Compositions\19.01...
+2025-09-04 19:00:39,183 - modules.indexer - INFO - Found approximately 15 audio files (0.98 GB)
+2025-09-04 19:00:39,184 - modules.indexer - INFO - Found checkpoint: 0/15
+2025-09-04 19:00:39,184 - modules.indexer - INFO - Resuming from checkpoint: 0 files already processed
+2025-09-04 19:00:39,192 - api.routes - INFO - Scan complete: 0 added, 15 skipped, 0 errors
+2025-09-04 19:00:39,192 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 19:01:03,189 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 19:01:03,189 - api.routes - INFO - Scanning directory: D:\DOCS\Music\01. Compositions\19.01 (resume=True)
+2025-09-04 19:01:03,190 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\01. Compositions\19.01...
+2025-09-04 19:01:03,191 - modules.indexer - INFO - Found approximately 15 audio files (0.98 GB)
+2025-09-04 19:01:03,193 - modules.indexer - INFO - Found checkpoint: 0/15
+2025-09-04 19:01:03,193 - modules.indexer - INFO - Resuming from checkpoint: 0 files already processed
+2025-09-04 19:01:03,199 - api.routes - INFO - Scan complete: 0 added, 15 skipped, 0 errors
+2025-09-04 19:01:03,199 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 19:03:52,627 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 19:03:52,627 - api.routes - INFO - Scanning directory: D:\DOCS\Music\01. Compositions\19.01 (resume=False)
+2025-09-04 19:03:52,627 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\01. Compositions\19.01...
+2025-09-04 19:03:52,629 - modules.indexer - INFO - Found approximately 15 audio files (0.98 GB)
+2025-09-04 19:03:52,642 - api.routes - INFO - Scan complete: 0 added, 15 skipped, 0 errors
+2025-09-04 19:03:52,642 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 19:04:05,274 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 19:04:05,308 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 19:04:05,309 - music_sorter - INFO - Shutting down Music Sorter application...
+2025-09-04 19:04:15,466 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 19:04:15,466 - api.routes - INFO - Scanning directory: D:\DOCS\Music\01. Compositions\19.01 (resume=False)
+2025-09-04 19:04:15,466 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\01. Compositions\19.01...
+2025-09-04 19:04:15,468 - modules.indexer - INFO - Found approximately 15 audio files (0.98 GB)
+2025-09-04 19:04:15,484 - api.routes - INFO - Scan complete: 0 added, 15 skipped, 0 errors
+2025-09-04 19:04:15,485 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 19:05:02,647 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 19:05:02,648 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 19:09:09,922 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 19:09:09,958 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 19:09:44,841 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 19:09:44,841 - api.routes - INFO - Scanning directory: D:\DOCS\Music\01. Compositions\19.01 (resume=False)
+2025-09-04 19:09:44,841 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\01. Compositions\19.01...
+2025-09-04 19:09:44,843 - modules.indexer - INFO - Found approximately 15 audio files (0.98 GB)
+2025-09-04 19:09:44,869 - api.routes - INFO - Scan complete: 0 added, 15 skipped, 0 errors
+2025-09-04 19:09:44,869 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 19:10:19,015 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 19:10:19,055 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 19:10:30,851 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 19:10:46,751 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 19:10:46,752 - api.routes - INFO - Scanning directory: D:\DOCS\Music\01. Compositions (resume=True)
+2025-09-04 19:10:46,752 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\01. Compositions...
+2025-09-04 19:10:46,759 - modules.indexer - INFO - Found approximately 62 audio files (2.12 GB)
+2025-09-04 19:10:46,762 - modules.indexer - INFO - Found checkpoint: 0/62
+2025-09-04 19:10:46,762 - modules.indexer - INFO - Resuming from checkpoint: 0 files already processed
+2025-09-04 19:10:46,779 - api.routes - INFO - Scan complete: 0 added, 62 skipped, 0 errors
+2025-09-04 19:10:46,780 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 19:11:55,160 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 19:11:55,161 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 19:11:55,751 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 19:12:04,073 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 19:12:04,074 - api.routes - INFO - Scanning directory: D:\DOCS\Music\01. Compositions (resume=True)
+2025-09-04 19:12:04,074 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\01. Compositions...
+2025-09-04 19:12:04,081 - modules.indexer - INFO - Found approximately 62 audio files (2.12 GB)
+2025-09-04 19:12:04,082 - modules.indexer - INFO - Found checkpoint: 0/62
+2025-09-04 19:12:04,082 - modules.indexer - INFO - Resuming from checkpoint: 0 files already processed
+2025-09-04 19:12:04,092 - api.routes - INFO - Scan complete: 0 added, 62 skipped, 0 errors
+2025-09-04 19:12:04,093 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 19:14:20,221 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 19:14:20,221 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 19:14:20,329 - music_sorter - INFO - Shutting down Music Sorter application...
+2025-09-04 19:14:21,984 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 19:14:22,022 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 19:14:24,429 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 19:14:26,562 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 19:14:26,563 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 19:14:26,915 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 19:14:27,055 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 19:14:27,055 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 19:14:27,385 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 19:14:37,584 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 19:14:37,584 - api.routes - INFO - Scanning directory: D:\DOCS\Music\01. Compositions (resume=True)
+2025-09-04 19:14:37,585 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\01. Compositions...
+2025-09-04 19:14:37,591 - modules.indexer - INFO - Found approximately 62 audio files (2.12 GB)
+2025-09-04 19:14:37,595 - modules.indexer - INFO - Found checkpoint: 0/62
+2025-09-04 19:14:37,595 - modules.indexer - INFO - Resuming from checkpoint: 0 files already processed
+2025-09-04 19:14:37,611 - api.routes - INFO - Scan complete: 0 added, 62 skipped, 0 errors
+2025-09-04 19:14:37,611 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 19:15:08,381 - api.routes - INFO - === STARTING SCAN PHASE ===
+2025-09-04 19:15:08,381 - api.routes - INFO - Scanning directory: D:OLD OLD Backups\DellMusic (resume=True)
+2025-09-04 19:15:08,381 - modules.indexer - INFO - Estimating file count in D:OLD OLD Backups\DellMusic...
+2025-09-04 19:15:08,430 - modules.indexer - INFO - Found approximately 122 audio files (0.97 GB)
+2025-09-04 19:15:11,880 - api.routes - INFO - Scan complete: 122 added, 0 skipped, 0 errors
+2025-09-04 19:15:11,881 - api.routes - INFO - === SCAN PHASE COMPLETE ===
+2025-09-04 19:15:21,305 - api.routes - INFO - === STARTING ANALYSIS PHASE ===
+2025-09-04 19:15:21,306 - api.routes - INFO - Step 1/3: Extracting metadata from all files...
+2025-09-04 19:15:21,306 - modules.metadata - INFO - Starting metadata extraction...
+2025-09-04 19:15:21,308 - modules.metadata - INFO - Extracting metadata for 123 files
+2025-09-04 19:15:23,288 - api.routes - INFO - Metadata extraction complete: 123 extracted, 0 failed
+2025-09-04 19:15:23,288 - api.routes - INFO - Step 2/3: Finding duplicate files...
+2025-09-04 19:15:23,288 - modules.deduplicator - INFO - Starting duplicate detection...
+2025-09-04 19:15:23,289 - modules.deduplicator - INFO - Grouping files by hash...
+2025-09-04 19:15:23,291 - modules.deduplicator - INFO - Processing 185 files for duplicate detection
+2025-09-04 19:15:23,292 - modules.deduplicator - INFO - Found 6 unique hash groups
+2025-09-04 19:15:23,292 - modules.deduplicator - INFO - Analyzing duplicate groups and scoring quality...
+2025-09-04 19:15:23,317 - modules.deduplicator - INFO - Saving duplicate groups to database...
+2025-09-04 19:15:23,332 - modules.deduplicator - INFO - Saved 6 duplicate groups to database
+2025-09-04 19:15:23,340 - modules.deduplicator - INFO - Found 6 duplicate groups with 25 files
+2025-09-04 19:15:23,340 - modules.deduplicator - INFO - Potential space savings: 0.56 GB
+2025-09-04 19:15:23,341 - api.routes - INFO - Duplicate detection complete: 6 groups found
+2025-09-04 19:15:23,341 - api.routes - INFO - Step 3/3: Classifying files as songs or samples...
+2025-09-04 19:15:23,341 - modules.classifier - INFO - Starting audio classification...
+2025-09-04 19:15:23,341 - modules.classifier - INFO - Getting files to classify (use_primary_only=True)...
+2025-09-04 19:15:23,433 - modules.classifier - INFO - Found 166 files to classify
+2025-09-04 19:15:23,519 - modules.classifier - INFO - Classification progress: 100/166 - Song: 50, Sample: 27, Stem: 15, Unknown: 9
+2025-09-04 19:15:23,586 - modules.classifier - INFO - Classification complete: 89 songs, 43 samples, 24 stems, 10 unknowns
+2025-09-04 19:15:23,587 - api.routes - INFO - Classification complete: 89 songs, 43 samples, 10 unknown
+2025-09-04 19:15:23,587 - api.routes - INFO - === ANALYSIS PHASE COMPLETE ===
+2025-09-04 19:17:03,326 - modules.migrator - INFO - Starting library migration to F:\music production
+2025-09-04 19:17:03,330 - modules.migrator - INFO - Migrating 166 files (skip_duplicates=True)
+2025-09-04 19:17:03,438 - modules.migrator - INFO - Migration complete: 166 migrated, 0 skipped, 0 failed

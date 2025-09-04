@@ -175,14 +175,16 @@ h1 {
 }
 
 .filters-panel {
+    background: var(--surface-light);
+    padding: 1.5rem;
+    border-radius: 8px;
     margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border);
+    border: 1px solid var(--border);
 }
 
 .filter-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
     margin-bottom: 1rem;
 }
@@ -205,6 +207,9 @@ h1 {
     border: 1px solid var(--border);
     color: var(--text);
     border-radius: 4px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .range-inputs {
@@ -618,6 +623,32 @@ h1 {
 .status-skipped {
     background: var(--warning);
     color: var(--secondary);
+}
+
+/* Classification type badges */
+.type-song {
+    background: #10b981;
+    color: white;
+}
+
+.type-sample {
+    background: #ef4444;
+    color: white;
+}
+
+.type-stem {
+    background: #8b5cf6;
+    color: white;
+}
+
+.type-unknown {
+    background: #6b7280;
+    color: white;
+}
+
+.type-unclassified {
+    background: var(--border);
+    color: var(--text-secondary);
 }
 
 /* Action buttons */

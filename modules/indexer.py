@@ -135,7 +135,10 @@ class FileIndexer:
                         'operation': 'index',
                         'progress': files_processed,
                         'total': total_files,
-                        'message': f"Indexed {files_processed}/{total_files} files"
+                        'message': f"Processing: {files_added} new, {files_skipped} skipped, {len(errors)} errors (Total: {files_processed}/{total_files})",
+                        'files_added': files_added,
+                        'files_skipped': files_skipped,
+                        'errors': len(errors)
                     })
                 
                 # Save checkpoint periodically

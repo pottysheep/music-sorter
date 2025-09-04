@@ -64,11 +64,15 @@ async def start_scan(request: ScanRequest, background_tasks: BackgroundTasks):
     
     def run_scan():
         try:
+            logger.info(f"=== STARTING SCAN PHASE ===")
+            logger.info(f"Scanning directory: {request.path} (resume={request.resume})")
             progress_data['scan']['status'] = 'running'
             file_indexer.set_progress_callback(lambda d: update_progress('scan', d))
             result = file_indexer.index_directory(request.path, request.resume)
             progress_data['scan']['status'] = 'completed'
             progress_data['scan']['result'] = result
+            logger.info(f"Scan complete: {result.get('files_added', 0)} added, {result.get('files_skipped', 0)} skipped, {result.get('errors', 0)} errors")
+            logger.info(f"=== SCAN PHASE COMPLETE ===")
         except Exception as e:
             logger.error(f"Scan error: {e}")
             progress_data['scan']['status'] = 'error'
@@ -98,25 +102,34 @@ async def start_analysis(background_tasks: BackgroundTasks):
     def run_analysis():
         try:
             # Extract metadata
+            logger.info("=== STARTING ANALYSIS PHASE ===")
+            logger.info("Step 1/3: Extracting metadata from all files...")
             progress_data['metadata']['status'] = 'running'
             metadata_extractor.set_progress_callback(lambda d: update_progress('metadata', d))
             metadata_result = metadata_extractor.extract_all_metadata()
             progress_data['metadata']['status'] = 'completed'
             progress_data['metadata']['result'] = metadata_result
+            logger.info(f"Metadata extraction complete: {metadata_result.get('extracted', 0)} extracted, {metadata_result.get('failed', 0)} failed")
             
             # Find duplicates (now for ALL files)
+            logger.info("Step 2/3: Finding duplicate files...")
             progress_data['duplicates']['status'] = 'running'
             duplicate_detector.set_progress_callback(lambda d: update_progress('duplicates', d))
             duplicate_result = duplicate_detector.find_duplicates()
             progress_data['duplicates']['status'] = 'completed'
             progress_data['duplicates']['result'] = duplicate_result
+            logger.info(f"Duplicate detection complete: {duplicate_result.get('total_groups', 0)} groups found")
             
             # Classify files as songs or samples
+            logger.info("Step 3/3: Classifying files as songs or samples...")
             progress_data['classification']['status'] = 'running'
             audio_classifier.set_progress_callback(lambda d: update_progress('classification', d))
             classification_result = audio_classifier.classify_library(use_primary_only=True)
             progress_data['classification']['status'] = 'completed'
             progress_data['classification']['result'] = classification_result
+            logger.info(f"Classification complete: {classification_result.get('songs', 0)} songs, {classification_result.get('samples', 0)} samples, {classification_result.get('unknown', 0)} unknown")
+            
+            logger.info("=== ANALYSIS PHASE COMPLETE ===")
             
         except Exception as e:
             logger.error(f"Analysis error: {e}")
@@ -268,23 +281,34 @@ async def get_statistics():
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/files")
-async def get_files(limit: int = 100, offset: int = 0):
-    """Get list of indexed files"""
+async def get_files(limit: int = 100, offset: int = 0, file_type: Optional[str] = None):
+    """Get list of indexed files with optional classification filter"""
     try:
-        from database.models import File, Metadata
+        from database.models import File, Metadata, Classification
         
         with db_manager.get_session() as session:
-            files = session.query(File).limit(limit).offset(offset).all()
+            query = session.query(File)
+            
+            # Apply classification filter if specified
+            if file_type and file_type in ['song', 'sample', 'stem', 'unknown']:
+                query = query.join(Classification).filter(Classification.file_type == file_type)
+            
+            files = query.limit(limit).offset(offset).all()
             
             file_list = []
             for file in files:
                 metadata = session.query(Metadata).filter_by(file_id=file.id).first()
+                classification = session.query(Classification).filter_by(file_id=file.id).first()
                 
                 file_list.append({
                     'id': file.id,
                     'path': file.source_path,
                     'size': file.file_size,
                     'status': file.status,
+                    'classification': {
+                        'type': classification.file_type if classification else 'unclassified',
+                        'confidence': classification.confidence if classification else 0
+                    },
                     'metadata': {
                         'artist': metadata.artist if metadata else None,
                         'title': metadata.title if metadata else None,

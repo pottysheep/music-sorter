@@ -139,6 +139,8 @@ class DuplicateDetector:
         
         try:
             with db_manager.get_session() as session:
+                # Re-attach the file to this session
+                file = session.merge(file)
                 # Get metadata if available
                 metadata = session.query(Metadata).filter_by(file_id=file.id).first()
                 
@@ -199,9 +201,12 @@ class DuplicateDetector:
                 session.query(Duplicate).delete()
                 
                 for group_id, group_data in duplicate_groups.items():
+                    # Re-attach primary file to session to get its ID
+                    primary_file = session.merge(group_data['primary'])
+                    
                     for item in group_data['files']:
-                        file = item['file']
-                        is_primary = (file.id == group_data['primary'].id)
+                        file = session.merge(item['file'])  # Re-attach file to session
+                        is_primary = (file.id == primary_file.id)
                         
                         duplicate = Duplicate(
                             group_id=group_id,
@@ -221,10 +226,15 @@ class DuplicateDetector:
         """Calculate potential space savings from removing duplicates"""
         total_savings = 0
         
-        for group_data in duplicate_groups.values():
-            # Sum size of all non-primary files
-            for item in group_data['files'][1:]:  # Skip primary file
-                total_savings += item['file'].file_size
+        try:
+            with db_manager.get_session() as session:
+                for group_data in duplicate_groups.values():
+                    # Sum size of all non-primary files
+                    for item in group_data['files'][1:]:  # Skip primary file
+                        file = session.merge(item['file'])  # Re-attach to session
+                        total_savings += file.file_size
+        except Exception as e:
+            logger.error(f"Error calculating space savings: {e}")
         
         return total_savings
     

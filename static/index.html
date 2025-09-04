@@ -37,7 +37,9 @@
                 </div>
                 <div id="scan-results" class="results-box" style="display: none;">
                     <h3>Scan Results</h3>
-                    <p>Files indexed: <span id="scan-files-count">0</span></p>
+                    <p>New files indexed: <span id="scan-files-count" class="highlight-new">0</span></p>
+                    <p>Files skipped (already indexed): <span id="scan-files-skipped" class="highlight-skip">0</span></p>
+                    <p>Errors: <span id="scan-errors" class="highlight-error">0</span></p>
                     <p>Time taken: <span id="scan-time">0</span> seconds</p>
                     <p>Files per second: <span id="scan-speed">0</span></p>
                 </div>
@@ -85,6 +87,7 @@
                             <h4>Classification</h4>
                             <p>Songs: <span id="songs-count">0</span></p>
                             <p>Samples: <span id="samples-count">0</span></p>
+                            <p>Stems: <span id="stems-count">0</span></p>
                             <p>Unknown: <span id="unknown-count">0</span></p>
                         </div>
                     </div>
@@ -173,7 +176,16 @@
             <!-- Files Browser -->
             <section id="files-section" class="step-section">
                 <h2>Library Browser</h2>
-                <button onclick="loadFiles()">Load Files</button>
+                <div class="library-controls">
+                    <select id="file-type-filter" onchange="loadFiles()">
+                        <option value="">All Files</option>
+                        <option value="song">Songs Only</option>
+                        <option value="sample">Samples Only</option>
+                        <option value="stem">Stems Only</option>
+                        <option value="unknown">Unknown Only</option>
+                    </select>
+                    <button onclick="loadFiles()">Refresh</button>
+                </div>
                 <div id="files-table-container">
                     <table id="files-table">
                         <thead>
@@ -181,6 +193,7 @@
                                 <th>Artist</th>
                                 <th>Title</th>
                                 <th>Album</th>
+                                <th>Type</th>
                                 <th>Status</th>
                                 <th>Size</th>
                             </tr>

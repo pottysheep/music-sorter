@@ -33,6 +33,23 @@ class Config:
                 "max_sample_size_mb": 0.5,
                 "hash_chunk_size_mb": 1
             },
+            "classification": {
+                "categories": ["song", "sample", "stem", "unknown"],
+                "thresholds": {
+                    "sample_max_size_mb": 0.5,
+                    "sample_max_duration_seconds": 30,
+                    "stem_min_size_mb": 0.5,
+                    "stem_max_size_mb": 10,
+                    "stem_keywords": ["stem", "drums", "bass", "vocals", "instrumental", "acapella", "dry", "wet"],
+                    "song_min_size_mb": 2,
+                    "song_min_duration_seconds": 90
+                },
+                "ml_model": {
+                    "enabled": False,
+                    "model_path": "models/classifier.pkl",
+                    "feature_extractors": ["duration", "file_size", "path_keywords", "filename_patterns"]
+                }
+            },
             "audio_analysis": {
                 "enabled": True,
                 "bpm_detection": True,
