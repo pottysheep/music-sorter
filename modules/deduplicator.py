@@ -31,12 +31,16 @@ class DuplicateDetector:
         logger.info("Starting duplicate detection...")
         
         # Level 1: Group by file size and hash
+        logger.info("Grouping files by hash...")
         hash_groups = self._group_by_hash()
+        logger.info(f"Found {len(hash_groups)} unique hash groups")
         
         # Level 2: Analyze groups and score quality
+        logger.info("Analyzing duplicate groups and scoring quality...")
         duplicate_groups = self._analyze_duplicate_groups(hash_groups)
         
         # Save results to database
+        logger.info("Saving duplicate groups to database...")
         self._save_duplicate_groups(duplicate_groups)
         
         stats = {
@@ -56,24 +60,34 @@ class DuplicateDetector:
         
         try:
             with db_manager.get_session() as session:
-                # Get all indexed files
+                # Get all indexed files - no size filtering, we'll classify later
                 files = session.query(File).filter(
-                    File.file_hash.isnot(None),
-                    File.file_size >= self.min_song_size  # Only consider files likely to be songs
+                    File.file_hash.isnot(None)
                 ).all()
                 
                 total_files = len(files)
                 
+                logger.info(f"Processing {total_files} files for duplicate detection")
+                
                 for i, file in enumerate(files):
                     hash_groups[file.file_hash].append(file)
                     
-                    if self.progress_callback and i % 100 == 0:
+                    if self.progress_callback and i % 10 == 0:  # More frequent updates
                         self.progress_callback({
-                            'operation': 'duplicate_detection',
-                            'progress': i,
+                            'operation': 'duplicates',  # Fixed: was 'duplicate_detection'
+                            'progress': i + 1,
                             'total': total_files,
-                            'message': f"Grouping files by hash: {i}/{total_files}"
+                            'message': f"Grouping files by hash: {i + 1}/{total_files}"
                         })
+                
+                # Send final progress
+                if self.progress_callback:
+                    self.progress_callback({
+                        'operation': 'duplicates',
+                        'progress': total_files,
+                        'total': total_files,
+                        'message': f"Completed grouping {total_files} files"
+                    })
         
         except Exception as e:
             logger.error(f"Error grouping files by hash: {e}")
@@ -84,8 +98,16 @@ class DuplicateDetector:
     def _analyze_duplicate_groups(self, hash_groups: Dict[str, List[File]]) -> Dict[str, Dict[str, Any]]:
         """Analyze duplicate groups and score quality"""
         duplicate_groups = {}
+        total_groups = len(hash_groups)
         
-        for hash_value, files in hash_groups.items():
+        for idx, (hash_value, files) in enumerate(hash_groups.items()):
+            if self.progress_callback and idx % 10 == 0:
+                self.progress_callback({
+                    'operation': 'duplicates',
+                    'progress': idx,
+                    'total': total_groups,
+                    'message': f"Analyzing duplicate group {idx}/{total_groups}"
+                })
             group_id = str(uuid.uuid4())
             
             # Score each file in the group

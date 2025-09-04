@@ -91,3 +91,145 @@
 2025-09-04 14:05:56,080 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
 2025-09-04 14:05:56,080 - api.websocket - INFO - WebSocket client disconnected
 2025-09-04 14:05:56,419 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 14:55:16,381 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 14:55:16,417 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 14:55:16,418 - music_sorter - INFO - Shutting down Music Sorter application...
+2025-09-04 14:56:23,033 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 14:56:23,069 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 14:56:23,456 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 14:56:30,447 - database.db - ERROR - Database error: type object 'AudioAnalysis' has no attribute 'id'
+2025-09-04 14:56:30,448 - api.search_routes - ERROR - Error fetching statistics: type object 'AudioAnalysis' has no attribute 'id'
+2025-09-04 14:57:09,839 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 14:57:09,875 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 14:57:09,948 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 14:57:18,078 - database.db - ERROR - Database error: type object 'Metadata' has no attribute 'id'
+2025-09-04 14:57:18,079 - api.search_routes - ERROR - Error fetching statistics: type object 'Metadata' has no attribute 'id'
+2025-09-04 15:00:06,648 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 15:00:06,683 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 15:00:10,427 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 15:00:19,438 - database.db - ERROR - Database error: type object 'File' has no attribute 'indexed_at'
+2025-09-04 15:00:19,438 - api.search_routes - ERROR - Search error: type object 'File' has no attribute 'indexed_at'
+2025-09-04 15:00:45,427 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 15:00:45,462 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 15:00:45,950 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 15:00:53,029 - database.db - ERROR - Database error: (sqlite3.OperationalError) no such column: metadata.artist
+[SQL: SELECT files.id AS files_id, files.source_path AS files_source_path, files.file_size AS files_file_size, files.modified_date AS files_modified_date, files.file_hash AS files_file_hash, files.audio_hash AS files_audio_hash, files.status AS files_status, files.error_message AS files_error_message, files.created_at AS files_created_at, metadata_1.file_id AS metadata_1_file_id, metadata_1.artist AS metadata_1_artist, metadata_1.album AS metadata_1_album, metadata_1.title AS metadata_1_title, metadata_1.track_number AS metadata_1_track_number, metadata_1.year AS metadata_1_year, metadata_1.genre AS metadata_1_genre, metadata_1.duration_seconds AS metadata_1_duration_seconds, metadata_1.bitrate AS metadata_1_bitrate, metadata_1.sample_rate AS metadata_1_sample_rate, metadata_1.format AS metadata_1_format, metadata_1.fingerprint_id AS metadata_1_fingerprint_id, migrations_1.id AS migrations_1_id, migrations_1.file_id AS migrations_1_file_id, migrations_1.source_path AS migrations_1_source_path, migrations_1.target_path AS migrations_1_target_path, migrations_1.status AS migrations_1_status, migrations_1.started_at AS migrations_1_started_at, migrations_1.completed_at AS migrations_1_completed_at, migrations_1.error AS migrations_1_error, audio_analysis_1.file_id AS audio_analysis_1_file_id, audio_analysis_1.bpm AS audio_analysis_1_bpm, audio_analysis_1.key_signature AS audio_analysis_1_key_signature, audio_analysis_1.energy AS audio_analysis_1_energy, audio_analysis_1.danceability AS audio_analysis_1_danceability, audio_analysis_1.loudness_db AS audio_analysis_1_loudness_db, audio_analysis_1.dynamic_range AS audio_analysis_1_dynamic_range, audio_analysis_1.analyzed_at AS audio_analysis_1_analyzed_at 
+FROM files LEFT OUTER JOIN metadata AS metadata_1 ON files.id = metadata_1.file_id LEFT OUTER JOIN migrations AS migrations_1 ON files.id = migrations_1.file_id LEFT OUTER JOIN audio_analysis AS audio_analysis_1 ON files.id = audio_analysis_1.file_id ORDER BY metadata.artist ASC NULLS FIRST
+ LIMIT ? OFFSET ?]
+[parameters: (2, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-09-04 15:00:53,029 - api.search_routes - ERROR - Search error: (sqlite3.OperationalError) no such column: metadata.artist
+[SQL: SELECT files.id AS files_id, files.source_path AS files_source_path, files.file_size AS files_file_size, files.modified_date AS files_modified_date, files.file_hash AS files_file_hash, files.audio_hash AS files_audio_hash, files.status AS files_status, files.error_message AS files_error_message, files.created_at AS files_created_at, metadata_1.file_id AS metadata_1_file_id, metadata_1.artist AS metadata_1_artist, metadata_1.album AS metadata_1_album, metadata_1.title AS metadata_1_title, metadata_1.track_number AS metadata_1_track_number, metadata_1.year AS metadata_1_year, metadata_1.genre AS metadata_1_genre, metadata_1.duration_seconds AS metadata_1_duration_seconds, metadata_1.bitrate AS metadata_1_bitrate, metadata_1.sample_rate AS metadata_1_sample_rate, metadata_1.format AS metadata_1_format, metadata_1.fingerprint_id AS metadata_1_fingerprint_id, migrations_1.id AS migrations_1_id, migrations_1.file_id AS migrations_1_file_id, migrations_1.source_path AS migrations_1_source_path, migrations_1.target_path AS migrations_1_target_path, migrations_1.status AS migrations_1_status, migrations_1.started_at AS migrations_1_started_at, migrations_1.completed_at AS migrations_1_completed_at, migrations_1.error AS migrations_1_error, audio_analysis_1.file_id AS audio_analysis_1_file_id, audio_analysis_1.bpm AS audio_analysis_1_bpm, audio_analysis_1.key_signature AS audio_analysis_1_key_signature, audio_analysis_1.energy AS audio_analysis_1_energy, audio_analysis_1.danceability AS audio_analysis_1_danceability, audio_analysis_1.loudness_db AS audio_analysis_1_loudness_db, audio_analysis_1.dynamic_range AS audio_analysis_1_dynamic_range, audio_analysis_1.analyzed_at AS audio_analysis_1_analyzed_at 
+FROM files LEFT OUTER JOIN metadata AS metadata_1 ON files.id = metadata_1.file_id LEFT OUTER JOIN migrations AS migrations_1 ON files.id = migrations_1.file_id LEFT OUTER JOIN audio_analysis AS audio_analysis_1 ON files.id = audio_analysis_1.file_id ORDER BY metadata.artist ASC NULLS FIRST
+ LIMIT ? OFFSET ?]
+[parameters: (2, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-09-04 15:04:34,553 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 15:04:34,554 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 15:04:34,897 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 15:05:58,573 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 15:05:58,573 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 15:05:58,711 - database.db - ERROR - Database error: (sqlite3.OperationalError) no such column: metadata.artist
+[SQL: SELECT files.id AS files_id, files.source_path AS files_source_path, files.file_size AS files_file_size, files.modified_date AS files_modified_date, files.file_hash AS files_file_hash, files.audio_hash AS files_audio_hash, files.status AS files_status, files.error_message AS files_error_message, files.created_at AS files_created_at, metadata_1.file_id AS metadata_1_file_id, metadata_1.artist AS metadata_1_artist, metadata_1.album AS metadata_1_album, metadata_1.title AS metadata_1_title, metadata_1.track_number AS metadata_1_track_number, metadata_1.year AS metadata_1_year, metadata_1.genre AS metadata_1_genre, metadata_1.duration_seconds AS metadata_1_duration_seconds, metadata_1.bitrate AS metadata_1_bitrate, metadata_1.sample_rate AS metadata_1_sample_rate, metadata_1.format AS metadata_1_format, metadata_1.fingerprint_id AS metadata_1_fingerprint_id, migrations_1.id AS migrations_1_id, migrations_1.file_id AS migrations_1_file_id, migrations_1.source_path AS migrations_1_source_path, migrations_1.target_path AS migrations_1_target_path, migrations_1.status AS migrations_1_status, migrations_1.started_at AS migrations_1_started_at, migrations_1.completed_at AS migrations_1_completed_at, migrations_1.error AS migrations_1_error, audio_analysis_1.file_id AS audio_analysis_1_file_id, audio_analysis_1.bpm AS audio_analysis_1_bpm, audio_analysis_1.key_signature AS audio_analysis_1_key_signature, audio_analysis_1.energy AS audio_analysis_1_energy, audio_analysis_1.danceability AS audio_analysis_1_danceability, audio_analysis_1.loudness_db AS audio_analysis_1_loudness_db, audio_analysis_1.dynamic_range AS audio_analysis_1_dynamic_range, audio_analysis_1.analyzed_at AS audio_analysis_1_analyzed_at 
+FROM files LEFT OUTER JOIN metadata AS metadata_1 ON files.id = metadata_1.file_id LEFT OUTER JOIN migrations AS migrations_1 ON files.id = migrations_1.file_id LEFT OUTER JOIN audio_analysis AS audio_analysis_1 ON files.id = audio_analysis_1.file_id ORDER BY metadata.artist ASC NULLS FIRST
+ LIMIT ? OFFSET ?]
+[parameters: (50, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-09-04 15:05:58,711 - api.search_routes - ERROR - Search error: (sqlite3.OperationalError) no such column: metadata.artist
+[SQL: SELECT files.id AS files_id, files.source_path AS files_source_path, files.file_size AS files_file_size, files.modified_date AS files_modified_date, files.file_hash AS files_file_hash, files.audio_hash AS files_audio_hash, files.status AS files_status, files.error_message AS files_error_message, files.created_at AS files_created_at, metadata_1.file_id AS metadata_1_file_id, metadata_1.artist AS metadata_1_artist, metadata_1.album AS metadata_1_album, metadata_1.title AS metadata_1_title, metadata_1.track_number AS metadata_1_track_number, metadata_1.year AS metadata_1_year, metadata_1.genre AS metadata_1_genre, metadata_1.duration_seconds AS metadata_1_duration_seconds, metadata_1.bitrate AS metadata_1_bitrate, metadata_1.sample_rate AS metadata_1_sample_rate, metadata_1.format AS metadata_1_format, metadata_1.fingerprint_id AS metadata_1_fingerprint_id, migrations_1.id AS migrations_1_id, migrations_1.file_id AS migrations_1_file_id, migrations_1.source_path AS migrations_1_source_path, migrations_1.target_path AS migrations_1_target_path, migrations_1.status AS migrations_1_status, migrations_1.started_at AS migrations_1_started_at, migrations_1.completed_at AS migrations_1_completed_at, migrations_1.error AS migrations_1_error, audio_analysis_1.file_id AS audio_analysis_1_file_id, audio_analysis_1.bpm AS audio_analysis_1_bpm, audio_analysis_1.key_signature AS audio_analysis_1_key_signature, audio_analysis_1.energy AS audio_analysis_1_energy, audio_analysis_1.danceability AS audio_analysis_1_danceability, audio_analysis_1.loudness_db AS audio_analysis_1_loudness_db, audio_analysis_1.dynamic_range AS audio_analysis_1_dynamic_range, audio_analysis_1.analyzed_at AS audio_analysis_1_analyzed_at 
+FROM files LEFT OUTER JOIN metadata AS metadata_1 ON files.id = metadata_1.file_id LEFT OUTER JOIN migrations AS migrations_1 ON files.id = migrations_1.file_id LEFT OUTER JOIN audio_analysis AS audio_analysis_1 ON files.id = audio_analysis_1.file_id ORDER BY metadata.artist ASC NULLS FIRST
+ LIMIT ? OFFSET ?]
+[parameters: (50, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-09-04 15:06:10,568 - database.db - ERROR - Database error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:10,568 - api.search_routes - ERROR - Search error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:10,901 - database.db - ERROR - Database error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:10,901 - api.search_routes - ERROR - Search error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:13,383 - database.db - ERROR - Database error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:13,384 - api.search_routes - ERROR - Search error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:13,809 - database.db - ERROR - Database error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:13,809 - api.search_routes - ERROR - Search error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:44,004 - database.db - ERROR - Database error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:44,005 - api.search_routes - ERROR - Search error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:45,972 - database.db - ERROR - Database error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:45,972 - api.search_routes - ERROR - Search error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:53,915 - database.db - ERROR - Database error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:53,915 - api.search_routes - ERROR - Search error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:57,079 - database.db - ERROR - Database error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:06:57,079 - api.search_routes - ERROR - Search error: type object 'File' has no attribute 'target_path'
+2025-09-04 15:07:25,762 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 15:07:25,798 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 15:08:01,210 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 15:08:02,284 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 15:08:02,284 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 15:08:02,618 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 15:08:03,284 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 15:08:03,284 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 15:08:59,040 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 15:09:21,329 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 15:09:21,329 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 15:13:16,260 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 15:13:16,294 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 15:13:18,637 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 15:13:22,537 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 15:13:22,537 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 15:13:22,869 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 15:13:23,400 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 15:13:23,400 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 15:13:23,721 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 15:13:54,734 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music...
+2025-09-04 15:13:55,325 - modules.indexer - INFO - Found approximately 10973 audio files (6.40 GB)
+2025-09-04 15:15:51,050 - modules.metadata - INFO - Starting metadata extraction...
+2025-09-04 15:15:51,217 - modules.metadata - INFO - Extracting metadata for 10953 files
+2025-09-04 15:17:23,957 - modules.deduplicator - INFO - Starting duplicate detection...
+2025-09-04 15:17:23,966 - database.db - ERROR - Database error: Instance <File at 0x200124ef250> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-04 15:17:23,966 - api.routes - ERROR - Analysis error: Instance <File at 0x200124ef250> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-04 15:19:06,883 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 15:19:06,883 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 15:20:03,527 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 15:21:03,783 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 15:21:03,783 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 15:21:03,887 - music_sorter - INFO - Shutting down Music Sorter application...
+2025-09-04 16:01:54,008 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 16:01:54,045 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 16:01:54,414 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 16:17:31,554 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 16:17:31,554 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 16:17:31,916 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 16:24:49,854 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 16:24:49,892 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 16:24:49,958 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 16:30:24,594 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 16:30:24,594 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 16:30:24,930 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 16:30:39,365 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 16:30:39,365 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 16:30:40,774 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 16:30:42,496 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 16:30:42,496 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 16:30:42,820 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 16:31:04,046 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\01. Compositions...
+2025-09-04 16:31:04,053 - modules.indexer - INFO - Found approximately 62 audio files (2.12 GB)
+2025-09-04 16:31:09,055 - modules.metadata - INFO - Starting metadata extraction...
+2025-09-04 16:31:09,060 - modules.metadata - INFO - Extracting metadata for 0 files
+2025-09-04 16:31:09,061 - modules.deduplicator - INFO - Starting duplicate detection...
+2025-09-04 16:31:09,264 - database.db - ERROR - Database error: Instance <File at 0x22b7fa6bad0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-04 16:31:09,264 - api.routes - ERROR - Analysis error: Instance <File at 0x22b7fa6bad0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-04 16:31:42,714 - music_sorter - INFO - Starting server on 0.0.0.0:8000
+2025-09-04 16:31:42,750 - music_sorter - INFO - Starting Music Sorter application...
+2025-09-04 16:31:42,950 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 16:32:02,092 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 16:32:02,092 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 16:32:02,413 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 16:32:03,743 - api.websocket - INFO - WebSocket disconnected. Total connections: 0
+2025-09-04 16:32:03,743 - api.websocket - INFO - WebSocket client disconnected
+2025-09-04 16:32:04,882 - api.websocket - INFO - WebSocket connected. Total connections: 1
+2025-09-04 16:32:17,598 - modules.indexer - INFO - Estimating file count in D:\DOCS\Documents...
+2025-09-04 16:32:17,648 - modules.indexer - INFO - Found approximately 0 audio files (0.00 GB)
+2025-09-04 16:32:29,441 - modules.indexer - INFO - Estimating file count in D:\DOCS\Music\01. Compositions...
+2025-09-04 16:32:29,447 - modules.indexer - INFO - Found approximately 62 audio files (2.12 GB)
+2025-09-04 16:32:33,589 - modules.metadata - INFO - Starting metadata extraction...
+2025-09-04 16:32:33,591 - modules.metadata - INFO - Extracting metadata for 62 files
+2025-09-04 16:32:34,092 - modules.deduplicator - INFO - Starting duplicate detection...
+2025-09-04 16:32:34,094 - database.db - ERROR - Database error: Instance <File at 0x257e8e4c410> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)
+2025-09-04 16:32:34,095 - api.routes - ERROR - Analysis error: Instance <File at 0x257e8e4c410> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: https://sqlalche.me/e/20/bhk3)

@@ -24,6 +24,7 @@ class File(Base):
     duplicates = relationship("Duplicate", back_populates="file", cascade="all, delete-orphan")
     migration = relationship("Migration", back_populates="file", uselist=False, cascade="all, delete-orphan")
     audio_analysis = relationship("AudioAnalysis", back_populates="file", uselist=False, cascade="all, delete-orphan")
+    classification = relationship("Classification", back_populates="file", uselist=False, cascade="all, delete-orphan")
 
 class Metadata(Base):
     __tablename__ = 'metadata'
@@ -85,6 +86,19 @@ class AudioAnalysis(Base):
     
     # Relationship
     file = relationship("File", back_populates="audio_analysis")
+
+class Classification(Base):
+    __tablename__ = 'classifications'
+    
+    file_id = Column(Integer, ForeignKey('files.id'), primary_key=True)
+    file_type = Column(String(20))  # song, sample, unknown
+    confidence = Column(Float)  # 0.0 to 1.0
+    classification_method = Column(String(50))  # size_threshold, ml_model, etc.
+    classification_details = Column(JSON)  # Additional details about the classification
+    classified_at = Column(DateTime, default=datetime.utcnow)
+    
+    # Relationship
+    file = relationship("File", back_populates="classification")
 
 class Checkpoint(Base):
     __tablename__ = 'checkpoints'

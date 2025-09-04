@@ -51,11 +51,28 @@ header h1 {
     display: flex;
     gap: 2rem;
     margin-top: 1rem;
+    align-items: center;
 }
 
 .stats-bar span {
     color: var(--text-secondary);
     font-size: 0.875rem;
+}
+
+.library-link {
+    margin-left: auto;
+    padding: 0.5rem 1rem;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: background 0.2s;
+}
+
+.library-link:hover {
+    background: #1d4ed8;
 }
 
 /* Main Content */

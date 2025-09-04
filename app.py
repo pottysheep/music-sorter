@@ -9,6 +9,7 @@ import logging
 from pathlib import Path
 
 from api.routes import router as api_router
+from api.search_routes import router as search_router
 from api.websocket import websocket_endpoint, broadcast_progress_task
 from config import config
 from utils.logger import logger
@@ -45,6 +46,7 @@ app = FastAPI(
 
 # Include API routes
 app.include_router(api_router)
+app.include_router(search_router)
 
 # WebSocket endpoint
 app.add_api_websocket_route("/ws/progress", websocket_endpoint)
@@ -60,6 +62,14 @@ if static_dir.exists():
     @app.get("/app.js")
     async def get_js():
         return FileResponse(str(static_dir / "app.js"), media_type="application/javascript")
+    
+    @app.get("/library.css")
+    async def get_library_css():
+        return FileResponse(str(static_dir / "library.css"), media_type="text/css")
+    
+    @app.get("/library.js")
+    async def get_library_js():
+        return FileResponse(str(static_dir / "library.js"), media_type="application/javascript")
 
 # Serve index.html
 @app.get("/")
@@ -70,6 +80,16 @@ async def root():
         return FileResponse(str(index_file))
     else:
         return {"message": "Music Sorter API", "docs": "/docs"}
+
+# Serve library.html
+@app.get("/library")
+async def library():
+    """Serve the library browser page"""
+    library_file = static_dir / "library.html"
+    if library_file.exists():
+        return FileResponse(str(library_file))
+    else:
+        return {"message": "Library browser not found", "redirect": "/"}
 
 # Health check endpoint
 @app.get("/health")

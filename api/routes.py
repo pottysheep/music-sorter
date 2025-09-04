@@ -12,6 +12,7 @@ from modules.deduplicator import DuplicateDetector
 from modules.metadata import MetadataExtractor
 from modules.migrator import FileMigrator
 from modules.audio_analysis import AudioAnalyzer
+from modules.classifier import AudioClassifier
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +24,7 @@ duplicate_detector = DuplicateDetector()
 metadata_extractor = MetadataExtractor()
 file_migrator = FileMigrator()
 audio_analyzer = AudioAnalyzer()
+audio_classifier = AudioClassifier()
 
 # Request/Response models
 class ScanRequest(BaseModel):
@@ -44,7 +46,8 @@ progress_data = {
     'duplicates': {'status': 'idle', 'progress': 0, 'total': 0, 'message': ''},
     'metadata': {'status': 'idle', 'progress': 0, 'total': 0, 'message': ''},
     'migrate': {'status': 'idle', 'progress': 0, 'total': 0, 'message': ''},
-    'audio': {'status': 'idle', 'progress': 0, 'total': 0, 'message': ''}
+    'audio': {'status': 'idle', 'progress': 0, 'total': 0, 'message': ''},
+    'classification': {'status': 'idle', 'progress': 0, 'total': 0, 'message': ''}
 }
 
 def update_progress(operation: str, data: Dict[str, Any]):
@@ -88,7 +91,7 @@ async def stop_scan():
 # Analysis endpoints
 @router.post("/analyze")
 async def start_analysis(background_tasks: BackgroundTasks):
-    """Start metadata extraction and duplicate detection"""
+    """Start metadata extraction, duplicate detection, and classification"""
     if progress_data['metadata']['status'] == 'running':
         raise HTTPException(status_code=400, detail="Analysis already in progress")
     
@@ -101,12 +104,19 @@ async def start_analysis(background_tasks: BackgroundTasks):
             progress_data['metadata']['status'] = 'completed'
             progress_data['metadata']['result'] = metadata_result
             
-            # Find duplicates
+            # Find duplicates (now for ALL files)
             progress_data['duplicates']['status'] = 'running'
             duplicate_detector.set_progress_callback(lambda d: update_progress('duplicates', d))
             duplicate_result = duplicate_detector.find_duplicates()
             progress_data['duplicates']['status'] = 'completed'
             progress_data['duplicates']['result'] = duplicate_result
+            
+            # Classify files as songs or samples
+            progress_data['classification']['status'] = 'running'
+            audio_classifier.set_progress_callback(lambda d: update_progress('classification', d))
+            classification_result = audio_classifier.classify_library(use_primary_only=True)
+            progress_data['classification']['status'] = 'completed'
+            progress_data['classification']['result'] = classification_result
             
         except Exception as e:
             logger.error(f"Analysis error: {e}")
@@ -121,7 +131,8 @@ async def get_analysis_status():
     """Get analysis status"""
     return {
         'metadata': progress_data['metadata'],
-        'duplicates': progress_data['duplicates']
+        'duplicates': progress_data['duplicates'],
+        'classification': progress_data['classification']
     }
 
 # Duplicate management
@@ -131,6 +142,25 @@ async def get_duplicates(limit: int = 100):
     try:
         duplicates = duplicate_detector.get_duplicate_groups(limit)
         return {"duplicates": duplicates, "count": len(duplicates)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+# Classification endpoints
+@router.get("/classifications")
+async def get_classifications(file_type: Optional[str] = None, limit: int = 100):
+    """Get classified files"""
+    try:
+        classifications = audio_classifier.get_classifications(file_type, limit)
+        return {"classifications": classifications, "count": len(classifications)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/classifications/stats")
+async def get_classification_stats():
+    """Get classification statistics"""
+    try:
+        stats = audio_classifier.get_classification_stats()
+        return stats
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

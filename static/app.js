@@ -178,6 +178,11 @@ function updateProgress(operation, data) {
             document.getElementById('duplicate-progress-text').textContent = data.message || '';
             break;
         
+        case 'classification':
+            document.getElementById('classification-progress-fill').style.width = progressPercent + '%';
+            document.getElementById('classification-progress-text').textContent = data.message || '';
+            break;
+        
         case 'migrate':
             document.getElementById('migration-progress').style.display = 'block';
             document.getElementById('migration-progress-fill').style.width = progressPercent + '%';
@@ -298,7 +303,9 @@ async function pollAnalysisStatus() {
     const interval = setInterval(async () => {
         const status = await apiCall('/analyze/status');
         
-        if (status.metadata.status === 'completed' && status.duplicates.status === 'completed') {
+        if (status.metadata.status === 'completed' && 
+            status.duplicates.status === 'completed' && 
+            status.classification && status.classification.status === 'completed') {
             clearInterval(interval);
             document.getElementById('analyze-btn').disabled = false;
             
@@ -309,6 +316,13 @@ async function pollAnalysisStatus() {
             document.getElementById('duplicate-groups').textContent = status.duplicates.result.total_groups;
             document.getElementById('space-savings').textContent = 
                 (status.duplicates.result.space_savings / 1024 / 1024 / 1024).toFixed(2);
+            
+            // Show classification results
+            if (status.classification && status.classification.result) {
+                document.getElementById('songs-count').textContent = status.classification.result.songs || 0;
+                document.getElementById('samples-count').textContent = status.classification.result.samples || 0;
+                document.getElementById('unknown-count').textContent = status.classification.result.unknown || 0;
+            }
             
             // Load duplicate preview
             loadDuplicates();

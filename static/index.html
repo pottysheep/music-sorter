@@ -15,6 +15,7 @@
                 <span id="total-size">Size: 0 GB</span>
                 <span id="duplicates-found">Duplicates: 0</span>
                 <span id="migrated-count">Migrated: 0</span>
+                <a href="/library" class="library-link">📚 Browse Library →</a>
             </div>
         </header>
         
@@ -59,6 +60,12 @@
                         <div class="progress-fill" id="duplicate-progress-fill"></div>
                     </div>
                     <p class="progress-text" id="duplicate-progress-text"></p>
+                    
+                    <h4>Classification (Songs vs Samples)</h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="classification-progress-fill"></div>
+                    </div>
+                    <p class="progress-text" id="classification-progress-text"></p>
                 </div>
                 
                 <div id="analysis-results" class="results-box" style="display: none;">
@@ -73,6 +80,12 @@
                             <h4>Duplicates</h4>
                             <p>Groups: <span id="duplicate-groups">0</span></p>
                             <p>Space savings: <span id="space-savings">0</span> GB</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Classification</h4>
+                            <p>Songs: <span id="songs-count">0</span></p>
+                            <p>Samples: <span id="samples-count">0</span></p>
+                            <p>Unknown: <span id="unknown-count">0</span></p>
                         </div>
                     </div>
                     

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Library Browser</title>
+    <link rel="stylesheet" href="library.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>🎵 Music Library Browser</h1>
+            <div class="header-controls">
+                <a href="/" class="btn-link">← Back to Migrator</a>
+                <button onclick="refreshStats()" class="btn-refresh">🔄 Refresh</button>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- Statistics Dashboard -->
+            <section id="stats-dashboard" class="dashboard">
+                <div class="stat-card primary">
+                    <div class="stat-value" id="stat-total-files">0</div>
+                    <div class="stat-label">Total Files</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-total-size">0 GB</div>
+                    <div class="stat-label">Library Size</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-duplicates">0</div>
+                    <div class="stat-label">Duplicate Groups</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-savings">0 GB</div>
+                    <div class="stat-label">Potential Savings</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-metadata">0%</div>
+                    <div class="stat-label">Metadata Coverage</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-analyzed">0%</div>
+                    <div class="stat-label">Audio Analyzed</div>
+                </div>
+            </section>
+
+            <!-- Search and Filters -->
+            <section id="search-section" class="search-panel">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search by artist, title, album, or path..." 
+                           onkeyup="handleSearchKeyup(event)">
+                    <button onclick="performSearch()" class="btn-search">Search</button>
+                    <button onclick="clearSearch()" class="btn-clear">Clear</button>
+                </div>
+
+                <div class="filter-toggle">
+                    <button onclick="toggleFilters()" id="toggle-filters">
+                        ▼ Advanced Filters
+                    </button>
+                </div>
+
+                <div id="advanced-filters" class="filters-panel" style="display: none;">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label>Artist</label>
+                            <input type="text" id="filter-artist" placeholder="Filter by artist...">
+                        </div>
+                        <div class="filter-group">
+                            <label>Album</label>
+                            <input type="text" id="filter-album" placeholder="Filter by album...">
+                        </div>
+                        <div class="filter-group">
+                            <label>Genre</label>
+                            <select id="filter-genre">
+                                <option value="">All Genres</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label>Year Range</label>
+                            <div class="range-inputs">
+                                <input type="number" id="filter-year-from" placeholder="From" min="1900" max="2024">
+                                <span>-</span>
+                                <input type="number" id="filter-year-to" placeholder="To" min="1900" max="2024">
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label>BPM Range</label>
+                            <div class="range-inputs">
+                                <input type="number" id="filter-bpm-min" placeholder="Min" min="0" max="300">
+                                <span>-</span>
+                                <input type="number" id="filter-bpm-max" placeholder="Max" min="0" max="300">
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label>Key Signature</label>
+                            <select id="filter-key">
+                                <option value="">All Keys</option>
+                                <option value="C">C Major</option>
+                                <option value="C#">C# Major</option>
+                                <option value="D">D Major</option>
+                                <option value="D#">D# Major</option>
+                                <option value="E">E Major</option>
+                                <option value="F">F Major</option>
+                                <option value="F#">F# Major</option>
+                                <option value="G">G Major</option>
+                                <option value="G#">G# Major</option>
+                                <option value="A">A Major</option>
+                                <option value="A#">A# Major</option>
+                                <option value="B">B Major</option>
+                                <option value="Am">A Minor</option>
+                                <option value="Bm">B Minor</option>
+                                <option value="Cm">C Minor</option>
+                                <option value="Dm">D Minor</option>
+                                <option value="Em">E Minor</option>
+                                <option value="Fm">F Minor</option>
+                                <option value="Gm">G Minor</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label>File Size (MB)</label>
+                            <div class="range-inputs">
+                                <input type="number" id="filter-size-min" placeholder="Min" min="0">
+                                <span>-</span>
+                                <input type="number" id="filter-size-max" placeholder="Max" min="0">
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label>Status</label>
+                            <select id="filter-status">
+                                <option value="">All Status</option>
+                                <option value="indexed">Indexed</option>
+                                <option value="migrated">Migrated</option>
+                                <option value="failed">Failed</option>
+                                <option value="skipped">Skipped</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Duplicates</label>
+                            <select id="filter-duplicates">
+                                <option value="">All Files</option>
+                                <option value="true">Has Duplicates</option>
+                                <option value="false">Unique Files</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-actions">
+                        <button onclick="applyFilters()" class="btn-primary">Apply Filters</button>
+                        <button onclick="resetFilters()" class="btn-secondary">Reset</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- View Tabs -->
+            <div class="view-tabs">
+                <button class="tab-btn active" onclick="switchView('browse')" id="tab-browse">
+                    📁 Browse Files
+                </button>
+                <button class="tab-btn" onclick="switchView('artists')" id="tab-artists">
+                    👤 Artists
+                </button>
+                <button class="tab-btn" onclick="switchView('albums')" id="tab-albums">
+                    💿 Albums
+                </button>
+                <button class="tab-btn" onclick="switchView('folders')" id="tab-folders">
+                    📂 Folder Structure
+                </button>
+                <button class="tab-btn" onclick="switchView('duplicates')" id="tab-duplicates">
+                    🔄 Duplicates
+                </button>
+                <button class="tab-btn" onclick="switchView('analytics')" id="tab-analytics">
+                    📊 Analytics
+                </button>
+            </div>
+
+            <!-- Browse View -->
+            <section id="view-browse" class="view-content active">
+                <div class="results-header">
+                    <span id="results-count">0 results found</span>
+                    <div class="sort-controls">
+                        <label>Sort by:</label>
+                        <select id="sort-by" onchange="performSearch()">
+                            <option value="artist">Artist</option>
+                            <option value="title">Title</option>
+                            <option value="album">Album</option>
+                            <option value="size">File Size</option>
+                            <option value="date_added">Date Added</option>
+                            <option value="bpm">BPM</option>
+                        </select>
+                        <select id="sort-order" onchange="performSearch()">
+                            <option value="asc">Ascending</option>
+                            <option value="desc">Descending</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="results-table">
+                    <table id="files-table">
+                        <thead>
+                            <tr>
+                                <th>Artist</th>
+                                <th>Title</th>
+                                <th>Album</th>
+                                <th>Genre</th>
+                                <th>Year</th>
+                                <th>BPM</th>
+                                <th>Key</th>
+                                <th>Size</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="files-tbody">
+                        </tbody>
+                    </table>
+                    <div id="no-results" class="no-results" style="display: none;">
+                        No files found. Try adjusting your search criteria.
+                    </div>
+                </div>
+
+                <div class="pagination">
+                    <button onclick="previousPage()" id="prev-page" disabled>← Previous</button>
+                    <div class="page-info">
+                        Page <span id="current-page">1</span> of <span id="total-pages">1</span>
+                        <span class="page-size">
+                            | Show:
+                            <select id="page-size" onchange="changePageSize()">
+                                <option value="25">25</option>
+                                <option value="50" selected>50</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                            </select>
+                        </span>
+                    </div>
+                    <button onclick="nextPage()" id="next-page">Next →</button>
+                </div>
+            </section>
+
+            <!-- Artists View -->
+            <section id="view-artists" class="view-content" style="display: none;">
+                <div class="grid-view" id="artists-grid">
+                </div>
+            </section>
+
+            <!-- Albums View -->
+            <section id="view-albums" class="view-content" style="display: none;">
+                <div class="grid-view" id="albums-grid">
+                </div>
+            </section>
+
+            <!-- Folder Structure View -->
+            <section id="view-folders" class="view-content" style="display: none;">
+                <div class="folder-browser">
+                    <div class="folder-tree" id="folder-tree">
+                    </div>
+                    <div class="folder-contents" id="folder-contents">
+                        <h3>Select a folder to view its contents</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Duplicates View -->
+            <section id="view-duplicates" class="view-content" style="display: none;">
+                <div class="duplicates-summary">
+                    <p>Found <strong id="dup-groups-count">0</strong> duplicate groups containing 
+                       <strong id="dup-files-count">0</strong> files, using 
+                       <strong id="dup-space">0 GB</strong> of space.</p>
+                    <p>You could save approximately <strong id="dup-savings">0 GB</strong> by removing duplicates.</p>
+                </div>
+                <div id="duplicates-list" class="duplicates-container">
+                </div>
+            </section>
+
+            <!-- Analytics View -->
+            <section id="view-analytics" class="view-content" style="display: none;">
+                <div class="analytics-grid">
+                    <div class="chart-container">
+                        <h3>Top Artists</h3>
+                        <canvas id="chart-artists"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Genre Distribution</h3>
+                        <canvas id="chart-genres"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>File Format Distribution</h3>
+                        <canvas id="chart-formats"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Key Signature Distribution</h3>
+                        <canvas id="chart-keys"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>BPM Distribution</h3>
+                        <canvas id="chart-bpm"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Year Distribution</h3>
+                        <canvas id="chart-years"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- File Details Modal -->
+        <div id="file-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close" onclick="closeFileModal()">&times;</span>
+                <h2>File Details</h2>
+                <div id="file-details">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="library.js"></script>
+</body>
+</html>
