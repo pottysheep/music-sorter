@@ -378,10 +378,15 @@ async function testMigration() {
     document.getElementById('test-btn').disabled = true;
     
     try {
+        const targetPath = document.getElementById('target-path').value;
         const skipDuplicates = document.getElementById('skip-duplicates').checked;
+        const createIfMissing = document.getElementById('create-target-if-missing').checked;
+        
         const result = await apiCall('/migrate', 'POST', {
+            target_path: targetPath,
             skip_duplicates: skipDuplicates,
-            test_mode: true
+            test_mode: true,
+            create_if_missing: createIfMissing
         });
         
         // Show test results
@@ -409,6 +414,7 @@ async function testMigration() {
 async function startMigration() {
     const targetPath = document.getElementById('target-path').value;
     const skipDuplicates = document.getElementById('skip-duplicates').checked;
+    const createIfMissing = document.getElementById('create-target-if-missing').checked;
     
     if (!targetPath) {
         showError('Please enter a target directory path');
@@ -420,8 +426,10 @@ async function startMigration() {
     
     try {
         const result = await apiCall('/migrate', 'POST', {
+            target_path: targetPath,
             skip_duplicates: skipDuplicates,
-            test_mode: false
+            test_mode: false,
+            create_if_missing: createIfMissing
         });
         
         // Poll for status

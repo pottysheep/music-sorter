@@ -25,7 +25,8 @@
       "Read(/C:\\Projects\\music sorter\\static/**)",
       "Read(/C:\\Projects\\music sorter\\static/**)",
       "Read(/C:\\Projects\\music sorter\\static/**)",
-      "Read(/C:\\Projects\\music sorter\\api/**)"
+      "Read(/C:\\Projects\\music sorter\\api/**)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

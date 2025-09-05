@@ -181,39 +181,26 @@ class FileMigrator:
         """
         Determine target path based on metadata
         
-        Structure: Artist/Album/Track - Title.ext
-        or: Artist/Singles/Title.ext
-        or: Unknown/filename.ext
+        Structure: Artist/original_filename.ext
+        or: Unknown/original_filename.ext
+        
+        Keeps original filename, only organizes by artist folder
         """
         source_path = Path(file.source_path)
-        extension = source_path.suffix
         
         # Get artist (or use Unknown)
         artist = "Unknown"
         if metadata and metadata.artist:
             artist = self._sanitize_name(metadata.artist)
         
-        # Get album (or use Singles)
-        album = "Singles"
-        if metadata and metadata.album:
-            album = self._sanitize_name(metadata.album)
+        # Keep original filename
+        filename = source_path.name
         
-        # Get title (or use original filename)
-        title = source_path.stem
-        if metadata and metadata.title:
-            title = self._sanitize_name(metadata.title)
-        
-        # Build filename
-        if metadata and metadata.track_number:
-            filename = f"{metadata.track_number:02d} - {title}{extension}"
-        else:
-            filename = f"{title}{extension}"
-        
-        # Optimize for Windows file system
+        # Optimize for Windows file system (just in case the original has issues)
         filename = optimize_path_for_windows(filename)
         
-        # Build complete path
-        target_path = self.target_base / artist / album / filename
+        # Build complete path - just artist/original_filename
+        target_path = self.target_base / artist / filename
         
         return target_path
     
